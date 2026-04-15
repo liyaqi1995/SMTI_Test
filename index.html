@@ -31,22 +31,29 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 #si{align-items:stretch;justify-content:flex-start;position:relative;overflow:hidden}
 .i-glow{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 90% 55% at 50% -5%,rgba(255,45,120,.16) 0%,transparent 65%),radial-gradient(ellipse 60% 45% at 85% 110%,rgba(0,229,255,.09) 0%,transparent 65%)}
 
-/* floating pixel kink decorations */
-.px-field{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.px-item{position:absolute;opacity:.48;line-height:1;user-select:none;filter:drop-shadow(0 0 16px rgba(255,45,120,.28)) drop-shadow(0 0 22px rgba(0,229,255,.12))}
-.px-item svg{filter:drop-shadow(0 0 14px rgba(255,45,120,.22)) drop-shadow(0 0 18px rgba(0,229,255,.10))}
-.px-field.px-quiz .px-item{opacity:.42}
-.px-field.px-quiz .px-item svg{transform:scale(1.05)}
-@keyframes pxFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-11px) rotate(5deg)}}
-.px-a{animation:pxFloat 7s ease-in-out infinite}
-.px-b{animation:pxFloat 9s ease-in-out infinite;animation-delay:-2s}
-.px-c{animation:pxFloat 8s ease-in-out infinite;animation-delay:-4s}
-.px-d{font-size:22px;animation:pxFloat 6s ease-in-out infinite;animation-delay:-1s}
-.px-e{font-size:18px;animation:pxFloat 10s ease-in-out infinite;animation-delay:-3s}
-.px-f{font-size:20px;animation:pxFloat 7.5s ease-in-out infinite;animation-delay:-5s}
-.px-g{font-size:16px;animation:pxFloat 11s ease-in-out infinite;animation-delay:-6s}
-.px-h{font-size:26px;animation:pxFloat 8.5s ease-in-out infinite;animation-delay:-2.5s}
-.px-i{font-size:24px;animation:pxFloat 7.8s ease-in-out infinite;animation-delay:-4.2s}
+/* neon kink icon layer (non-pixel, more visible) */
+.kink-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.kink-icon{position:absolute;line-height:1;user-select:none;font-size:clamp(22px,3.2vw,40px);opacity:.65;
+  filter:drop-shadow(0 0 14px rgba(255,45,120,.45)) drop-shadow(0 0 24px rgba(0,229,255,.24));
+  animation:kinkFloat 8.5s ease-in-out infinite, kinkPulse 2.2s ease-in-out infinite}
+@keyframes kinkFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(6deg)}}
+@keyframes kinkPulse{0%,100%{filter:drop-shadow(0 0 10px rgba(255,45,120,.34)) drop-shadow(0 0 16px rgba(0,229,255,.18))}50%{filter:drop-shadow(0 0 20px rgba(255,45,120,.56)) drop-shadow(0 0 34px rgba(0,229,255,.28))}}
+/* static, low-contrast quiz background artwork */
+.quiz-bg-art{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+  background:
+    radial-gradient(ellipse 60% 32% at 50% -8%, rgba(255,45,120,.09), transparent 70%),
+    radial-gradient(ellipse 50% 28% at 90% 112%, rgba(0,229,255,.06), transparent 72%)}
+.qbg-i{position:absolute;user-select:none;line-height:1;color:rgba(255,255,255,.18);
+  text-shadow:0 0 10px rgba(255,45,120,.2),0 0 18px rgba(0,229,255,.12)}
+.qbg-a{top:8%;left:4%;font-size:30px}
+.qbg-b{top:12%;right:5%;font-size:34px}
+.qbg-c{top:24%;left:2%;font-size:30px}
+.qbg-d{top:26%;right:2%;font-size:28px}
+.qbg-e{top:58%;left:2%;font-size:30px}
+.qbg-f{top:62%;right:2%;font-size:30px}
+.qbg-g{bottom:16%;left:6%;font-size:30px}
+.qbg-h{bottom:12%;right:6%;font-size:34px}
+.qbg-i2{bottom:5%;left:50%;transform:translateX(-50%);font-size:24px;opacity:.18}
 
 /* scroll container */
 .i-scroll{position:relative;z-index:1;overflow-y:auto;flex:1;display:flex;flex-direction:column;align-items:center;-webkit-overflow-scrolling:touch}
@@ -63,9 +70,32 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 @keyframes gl1{0%,88%,100%{transform:translateX(0);opacity:0}90%{transform:translateX(-5px);opacity:.7}93%{transform:translateX(5px);opacity:.7}97%{transform:translateX(0);opacity:0}}
 @keyframes gl2{0%,85%,100%{transform:translateX(0);opacity:0}87%{transform:translateX(5px);opacity:.7}91%{transform:translateX(-4px);opacity:.7}96%{transform:translateX(0);opacity:0}}
 .tagline{font-size:11px;color:#666;letter-spacing:2px;margin-top:6px;text-transform:uppercase}
-.hero-copy{margin-top:22px;font-size:15px;color:#888;line-height:2.1}
+.hero-copy{margin-top:22px;font-size:15px;color:#888;line-height:1.9}
 .hero-copy strong{color:#ddd}
 .hero-copy em{color:var(--pink);font-style:normal}
+.hero-cage{margin:22px auto 0;max-width:520px;padding:18px 16px 14px;position:relative;
+  background:linear-gradient(180deg,rgba(10,10,14,.72),rgba(8,8,10,.86));
+  border:1px solid rgba(190,190,210,.34);border-radius:10px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),0 0 24px rgba(255,45,120,.14),0 18px 34px rgba(0,0,0,.35)}
+/* frontal bars */
+.hero-cage::before{content:'';position:absolute;inset:8px;border-radius:6px;pointer-events:none;z-index:0;
+  background:
+    repeating-linear-gradient(90deg,rgba(198,198,214,.22) 0 2px,transparent 2px 22px),
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0))}
+/* 3D side rails + top beam */
+.hero-cage::after{content:'';position:absolute;inset:-8px -10px -10px -10px;pointer-events:none;z-index:0;
+  background:
+    linear-gradient(90deg,rgba(185,185,205,.28),rgba(185,185,205,0)) left 0 top 10px/18px 92% no-repeat,
+    linear-gradient(270deg,rgba(185,185,205,.28),rgba(185,185,205,0)) right 0 top 10px/18px 92% no-repeat,
+    linear-gradient(180deg,rgba(255,45,120,.45),rgba(0,229,255,.26)) center top/100% 6px no-repeat;
+  transform:perspective(600px) rotateX(5deg)}
+/* text/button plate hides bars behind readable area */
+.hero-cage .hero-copy,
+.hero-cage .hero-cta{position:relative;z-index:2}
+.hero-cage .hero-copy{background:linear-gradient(180deg,rgba(8,8,12,.86),rgba(8,8,12,.78));
+  border-radius:10px;padding:8px 10px}
+.hero-cage .hero-cta{margin-top:14px;background:linear-gradient(180deg,rgba(8,8,12,.85),rgba(8,8,12,.72));
+  border-radius:10px;padding:10px 10px 6px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .i-hero>*{animation:fadeUp .5s ease both}
 .i-hero>.badge{animation-delay:.05s}
@@ -108,6 +138,28 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 /* cta bottom */
 .cta-section{text-align:center;padding:8px 24px 56px;width:100%;max-width:540px}
 .age-notice{margin-top:20px;font-size:10px;color:#3a3a42;line-height:2.4}
+
+/* ── PREFS ── */
+#sp{align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--bg)}
+.p-wrap{position:relative;z-index:1;width:min(560px,100%);padding:28px 20px 40px}
+.p-card{background:linear-gradient(180deg,rgba(15,15,17,.92),rgba(9,9,11,.96));border:1px solid var(--border);border-radius:24px;padding:24px 18px 18px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.p-title{font-size:24px;font-weight:800;letter-spacing:.4px;margin-bottom:10px}
+.p-copy{font-size:13px;line-height:1.8;color:#8b8b95;margin-bottom:18px}
+.p-group{margin-bottom:16px}
+.p-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#666;margin-bottom:10px}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.p-opt{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:14px 12px;cursor:pointer;transition:.18s;text-align:left}
+.p-opt:hover{border-color:#333;transform:translateY(-1px)}
+.p-opt.sel{border-color:rgba(255,45,120,.5);background:rgba(255,45,120,.08);box-shadow:0 0 0 1px rgba(255,45,120,.18) inset}
+.p-opt strong{display:block;font-size:14px;color:#ddd;margin-bottom:4px}
+.p-opt span{display:block;font-size:12px;line-height:1.5;color:#777}
+.p-actions{display:flex;gap:10px}
+.p-actions .btn-nav{flex:1}
+.p-actions .btn-main{flex:1;border-radius:16px;padding:14px 18px}
+
+@media (max-width:520px){
+  .p-grid{grid-template-columns:1fr}
+}
 
 /* ── QUIZ ── */
 #sq{background:var(--bg)}
@@ -162,9 +214,10 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 #res-card::before{content:'';position:absolute;top:-60%;left:-30%;width:200%;height:200%;background:radial-gradient(ellipse at center,var(--tc) 0%,transparent 60%);opacity:.06;pointer-events:none;z-index:0}
 
 .r-top{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}
-.r-tag{font-family:'Space Grotesk','Arial Black',sans-serif;font-size:clamp(42px,12vw,64px);font-weight:900;letter-spacing:-2px;line-height:1;color:var(--tc)}
+.r-head{min-width:0;flex:1}
+.r-tag{font-family:'Space Grotesk','Arial Black',sans-serif;font-size:clamp(28px,7.2vw,42px);font-weight:900;letter-spacing:-1.4px;line-height:1.05;color:var(--tc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.r-sub{margin-top:8px;font-size:13px;line-height:1.65;color:#8d8d98;max-width:720px}
 .r-code{font-family:'Space Grotesk',ui-monospace,monospace;font-size:12px;color:#3b3b44;letter-spacing:1.2px;font-weight:800}
-.r-name{font-size:17px;font-weight:700;line-height:1.45;margin-bottom:20px}
 .r-rarity{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:100px;padding:4px 12px;font-size:11px;color:#666;margin-bottom:18px}
 .r-rarity span{color:var(--tc);font-weight:600}
 
@@ -218,6 +271,9 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 .btn-share:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .btn-retry{background:transparent;color:#555;border:1px solid var(--border);padding:14px;border-radius:var(--r);font-size:14px;cursor:pointer;font-family:inherit;transition:.18s}
 .btn-retry:hover{border-color:#333;color:#888}
+.author-sign{margin-top:16px;text-align:center;font-size:12px;color:#555;line-height:1.8}
+.author-sign a{color:var(--pink);text-decoration:none;border-bottom:1px dashed rgba(255,45,120,.5);transition:.15s;font-weight:700}
+.author-sign a:hover{color:#ff74ad;border-bottom-color:rgba(255,116,173,.9)}
 
 /* ERROR TYPE special */
 .err-glitch{animation:errG .4s infinite}
@@ -244,7 +300,10 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 @media(max-width:480px){
   .q-text{font-size:16px}.opt-t{font-size:13px}#res-card{padding:22px 16px}
   .i-hero{padding:36px 20px 20px}
-  .hero-copy{font-size:14px;line-height:2}
+  .hero-copy{font-size:14px;line-height:1.82}
+  .hero-cage{padding:16px 12px 12px;border-radius:9px}
+  .hero-cage .hero-copy{padding:8px 8px}
+  .hero-cage .hero-cta{padding:10px 8px 6px}
   .dim-section{padding:0 16px 28px}
   .dim-card{padding:12px 8px}
   .dim-pole{font-size:20px}
@@ -264,72 +323,17 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
 <div class="scr on" id="si">
   <div class="i-glow"></div>
 
-  <!-- Floating pixel kink decorations -->
-  <div class="px-field" aria-hidden="true">
-    <!-- pixel stocking 丝袜 -->
-    <span class="px-item px-a" style="top:9%;left:5%">
-      <svg width="40" height="56" viewBox="0 0 10 14" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-        <rect x="3" y="0" width="4" height="1" fill="#FF2D78"/>
-        <rect x="2" y="0" width="1" height="1" fill="#BF00FF"/>
-        <rect x="7" y="0" width="1" height="1" fill="#BF00FF"/>
-        <rect x="2" y="1" width="6" height="8" fill="#FF69B4"/>
-        <rect x="3" y="2" width="2" height="4" fill="#FF9EC4" opacity=".5"/>
-        <rect x="1" y="9" width="8" height="2" fill="#FF69B4"/>
-        <rect x="0" y="11" width="8" height="2" fill="#FF69B4"/>
-        <rect x="1" y="13" width="7" height="1" fill="#FF2D78"/>
-      </svg>
-    </span>
-    <!-- pixel whip 皮鞭 -->
-    <span class="px-item px-b" style="top:14%;right:6%">
-      <svg width="52" height="52" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-        <rect x="0" y="10" width="5" height="2" fill="#5C3317"/>
-        <rect x="1" y="9" width="3" height="1" fill="#7A4420"/>
-        <rect x="4" y="9" width="2" height="1" fill="#A0522D"/>
-        <rect x="5" y="8" width="2" height="1" fill="#555"/>
-        <rect x="7" y="7" width="2" height="1" fill="#555"/>
-        <rect x="9" y="6" width="2" height="1" fill="#444"/>
-        <rect x="8" y="5" width="2" height="1" fill="#444"/>
-        <rect x="7" y="4" width="1" height="1" fill="#333"/>
-        <rect x="8" y="3" width="2" height="1" fill="#333"/>
-        <rect x="10" y="2" width="2" height="1" fill="#222"/>
-        <rect x="11" y="1" width="2" height="1" fill="#FF2D78"/>
-        <rect x="12" y="0" width="1" height="1" fill="#FF69B4"/>
-      </svg>
-    </span>
-    <!-- pixel leather cuff 皮革手铐 -->
-    <span class="px-item px-c" style="bottom:22%;left:4%">
-      <svg width="52" height="36" viewBox="0 0 13 9" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-        <rect x="0" y="1" width="13" height="7" fill="#1a1212"/>
-        <rect x="0" y="0" width="13" height="1" fill="#2e2020"/>
-        <rect x="0" y="8" width="13" height="1" fill="#2e2020"/>
-        <rect x="1" y="2" width="11" height="5" fill="#0d0808"/>
-        <rect x="3" y="3" width="3" height="3" fill="#1a1212"/>
-        <rect x="7" y="3" width="3" height="3" fill="#1a1212"/>
-        <rect x="5" y="2" width="3" height="1" fill="#FFE600"/>
-        <rect x="5" y="6" width="3" height="1" fill="#FFE600"/>
-        <rect x="5" y="3" width="1" height="3" fill="#FFE600"/>
-        <rect x="7" y="3" width="1" height="3" fill="#FFE600"/>
-        <rect x="1" y="4" width="1" height="1" fill="#555"/>
-        <rect x="11" y="4" width="1" height="1" fill="#555"/>
-      </svg>
-    </span>
-    <!-- pixel collar 项圈 -->
-    <span class="px-item px-g" style="top:52%;right:5%">
-      <svg width="44" height="20" viewBox="0 0 11 5" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-        <rect x="0" y="0" width="11" height="5" fill="#1a1212"/>
-        <rect x="1" y="1" width="9" height="3" fill="#0d0808"/>
-        <rect x="4" y="0" width="3" height="1" fill="#BF00FF"/>
-        <rect x="4" y="4" width="3" height="1" fill="#BF00FF"/>
-        <rect x="5" y="1" width="1" height="3" fill="#BF00FF"/>
-        <rect x="1" y="2" width="1" height="1" fill="#888"/>
-        <rect x="9" y="2" width="1" height="1" fill="#888"/>
-        <rect x="3" y="2" width="1" height="1" fill="#555"/>
-        <rect x="7" y="2" width="1" height="1" fill="#555"/>
-      </svg>
-    </span>
-    <span class="px-item px-d" style="top:38%;left:3%">⛓️</span>
-    <span class="px-item px-e" style="bottom:30%;right:7%">🌹</span>
-    <span class="px-item px-f" style="top:68%;left:7%">🔗</span>
+  <!-- Neon kink decorations -->
+  <div class="kink-layer" aria-hidden="true">
+    <span class="kink-icon" style="top:8%;left:6%;animation-duration:8.1s">⛓️</span>
+    <span class="kink-icon" style="top:12%;right:8%;animation-duration:9.4s;animation-delay:-1.2s">🪢</span>
+    <span class="kink-icon" style="top:24%;left:84%;font-size:42px;opacity:.72;animation-duration:7.6s">🌹</span>
+    <span class="kink-icon" style="top:40%;left:12%;animation-duration:8.8s;animation-delay:-2.4s">🖤</span>
+    <span class="kink-icon" style="top:50%;right:10%;font-size:38px;animation-duration:7.2s">⛓️</span>
+    <span class="kink-icon" style="top:76%;left:83%;font-size:34px;opacity:.6;animation-duration:9.1s">👠</span>
+    <span class="kink-icon" style="bottom:22%;left:8%;animation-duration:8.7s">🔗</span>
+    <span class="kink-icon" style="bottom:18%;right:7%;font-size:42px;animation-duration:7.9s;animation-delay:-1.8s">🌹</span>
+    <span class="kink-icon" style="bottom:8%;left:45%;font-size:30px;opacity:.58;animation-duration:9.7s">🕯️</span>
   </div>
 
   <!-- Scrollable content -->
@@ -340,16 +344,19 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
       <div class="badge">S · M · T · I</div>
       <div class="logo" data-text="SMTI"><span class="s">S</span>M<span class="t">T</span>I</div>
       <div class="tagline">SEXUAL MOTIVATION TYPE INDICATOR</div>
-      <div class="hero-copy">
-        别装了——人类自<strong>伊甸园</strong>起，<br>
-        就用一片<em>无花果叶</em>盖住那些说不出口的渴望。<br><br>
-        你的某个部分，藏在<strong>所有社交滤镜</strong>背后，<br>
-        它从未被认真命名，却<strong>一直悄悄存在</strong>。<br><br>
-        现在，用<em>伪科学</em>的名义，<br>
-        把那片叶子摘掉，把它<strong>鉴定得明明白白。</strong>
-      </div>
-      <div class="hero-cta">
-        <button class="btn-main" id="btn-start">开始鉴定我的XP →</button>
+      <div class="hero-cage">
+        <div class="hero-copy" style="margin-top:0">
+      
+          你的某个部分，藏在「情绪稳定」的社交滤镜背后，在无数个深夜悄悄苏醒，却从未被认真命名。<br><br>
+          <strong>别害羞了。</strong><br><br>
+          当人类完成进化的那灵光一闪，带来了文明。<br> 也带来了来自伊甸园的羞耻心。<br>
+          但这从来不是原罪，而是人类凝视自我的证明。<br>
+          X 癖从来不是怪癖 <br>它是你剥开社会身份后，灵魂深处最诚实的自我。<br><br>
+         让我们用伪科学，把你的灵魂底色，<strong>鉴定得明明白白。</strong>
+        </div>
+        <div class="hero-cta">
+          <button class="btn-main" id="btn-start">开始鉴定我的XP →</button>
+        </div>
       </div>
     </div>
 
@@ -440,46 +447,56 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
   </div>
 </div>
 
+<!-- PREFERENCES -->
+<div class="scr" id="sp">
+  <div class="i-glow"></div>
+  <div class="p-wrap">
+    <div class="p-card">
+      <div class="badge">COPY · TUNING</div>
+      <div class="p-title">先选一个代入偏好</div>
+      <div class="p-copy">这一步只会微调题目和选项的文案视角，不影响算法本身，也不会上传任何数据。</div>
+
+      <div class="p-group">
+        <div class="p-label">性别</div>
+        <div class="p-grid">
+          <button class="p-opt" type="button" data-pref-group="gender" data-pref-value="male"><strong>男</strong><span>更贴近男性身份视角</span></button>
+          <button class="p-opt" type="button" data-pref-group="gender" data-pref-value="female"><strong>女</strong><span>更贴近女性身份视角</span></button>
+          <button class="p-opt" type="button" data-pref-group="gender" data-pref-value="undefined"><strong>不被定义</strong><span>不以固定性别代入</span></button>
+          <button class="p-opt" type="button" data-pref-group="gender" data-pref-value="fluid"><strong>多变</strong><span>按流动、变化的状态代入</span></button>
+        </div>
+      </div>
+
+      <div class="p-group">
+        <div class="p-label">性取向</div>
+        <div class="p-grid">
+          <button class="p-opt" type="button" data-pref-group="orientation" data-pref-value="straight"><strong>异性</strong><span>默认代入异性吸引对象</span></button>
+          <button class="p-opt" type="button" data-pref-group="orientation" data-pref-value="gay"><strong>同性</strong><span>默认代入同性吸引对象</span></button>
+          <button class="p-opt" type="button" data-pref-group="orientation" data-pref-value="undefined"><strong>不被定义</strong><span>不按固定取向代入</span></button>
+          <button class="p-opt" type="button" data-pref-group="orientation" data-pref-value="fluid"><strong>多变</strong><span>代入对象会更中性流动</span></button>
+        </div>
+      </div>
+
+      <div class="p-actions">
+        <button class="btn-nav" id="btn-pref-back" type="button">← 返回首页</button>
+        <button class="btn-main" id="btn-pref-go" type="button" disabled>进入测试 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- QUIZ -->
 <div class="scr" id="sq">
-  <!-- ambient BDSM decorations (more visible) -->
-  <div class="px-field px-quiz" aria-hidden="true">
-    <span class="px-item px-a" style="top:10%;right:6%">
-      <svg width="52" height="52" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-        <rect x="0" y="10" width="5" height="2" fill="#5C3317"/>
-        <rect x="1" y="9" width="3" height="1" fill="#7A4420"/>
-        <rect x="4" y="9" width="2" height="1" fill="#A0522D"/>
-        <rect x="5" y="8" width="2" height="1" fill="#555"/>
-        <rect x="7" y="7" width="2" height="1" fill="#555"/>
-        <rect x="9" y="6" width="2" height="1" fill="#444"/>
-        <rect x="8" y="5" width="2" height="1" fill="#444"/>
-        <rect x="7" y="4" width="1" height="1" fill="#333"/>
-        <rect x="8" y="3" width="2" height="1" fill="#333"/>
-        <rect x="10" y="2" width="2" height="1" fill="#222"/>
-        <rect x="11" y="1" width="2" height="1" fill="#FF2D78"/>
-        <rect x="12" y="0" width="1" height="1" fill="#FF69B4"/>
-      </svg>
-    </span>
-    <span class="px-item px-b" style="bottom:18%;left:5%">
-      <svg width="56" height="40" viewBox="0 0 13 9" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-        <rect x="0" y="1" width="13" height="7" fill="#1a1212"/>
-        <rect x="0" y="0" width="13" height="1" fill="#2e2020"/>
-        <rect x="0" y="8" width="13" height="1" fill="#2e2020"/>
-        <rect x="1" y="2" width="11" height="5" fill="#0d0808"/>
-        <rect x="3" y="3" width="3" height="3" fill="#1a1212"/>
-        <rect x="7" y="3" width="3" height="3" fill="#1a1212"/>
-        <rect x="5" y="2" width="3" height="1" fill="#FFE600"/>
-        <rect x="5" y="6" width="3" height="1" fill="#FFE600"/>
-        <rect x="5" y="3" width="1" height="3" fill="#FFE600"/>
-        <rect x="7" y="3" width="1" height="3" fill="#FFE600"/>
-        <rect x="1" y="4" width="1" height="1" fill="#555"/>
-        <rect x="11" y="4" width="1" height="1" fill="#555"/>
-      </svg>
-    </span>
-    <span class="px-item px-h" style="top:46%;left:4%">⛓️</span>
-    <span class="px-item px-i" style="top:58%;right:4%">🌹</span>
-    <span class="px-item px-f" style="bottom:26%;right:7%">🔗</span>
-    <span class="px-item px-e" style="top:80%;left:8%">🖤</span>
+  <!-- static background artwork -->
+  <div class="quiz-bg-art" aria-hidden="true">
+    <span class="qbg-i qbg-a">⛓️</span>
+    <span class="qbg-i qbg-b">🌹</span>
+    <span class="qbg-i qbg-c">🪢</span>
+    <span class="qbg-i qbg-d">🖤</span>
+    <span class="qbg-i qbg-e">👠</span>
+    <span class="qbg-i qbg-f">⛓️</span>
+    <span class="qbg-i qbg-g">🔗</span>
+    <span class="qbg-i qbg-h">🌹</span>
+    <span class="qbg-i qbg-i2">🕯️</span>
   </div>
   <div class="qh">
     <div class="prog-row">
@@ -524,6 +541,10 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,'PingFang S
     <div class="act-btns">
       <button class="btn-share" id="bshare">📸 截图分享（吓死你朋友）</button>
       <button class="btn-retry" id="btn-retry">↩ 我不接受，重新测一次</button>
+      <button class="btn-retry" id="btn-home">⌂ 回到首页</button>
+    </div>
+    <div class="author-sign">
+      本测试由小红书博主：「<a href="https://xhslink.com/m/9ekunwMddqs" target="_blank" rel="noopener noreferrer">人类学本无归</a>」制作
     </div>
   </div>
 </div>
@@ -539,44 +560,44 @@ const QS = [
    o:[{l:"A",t:"表面波澜不惊，心里疯狂摇尾巴，脚趾已经在鞋里抠出了一座迪士尼。",v:"B"},
       {l:"B",t:"反瞪回去冷笑：\"装什么，信不信今晚让你跪着唱征服？\"",v:"T"},
       {l:"C",t:"顺势躺在地上，抱住大腿大喊：\"汪汪！老板再骂两句！\"",v:"X"},
-      {l:"D",t:"神经病啊，又来PUA，立马打开BOSS直聘开溜。",v:"H"}]},
+      {l:"D",t:"神经病啊，又来PUA，立马打开BOSS直聘开溜。",v:"C"}]},
   {q:"收到伴侣送的精美盲盒，上面贴着大红警告：\"千万不要按那个按钮。\"",
    o:[{l:"A",t:"坚决不按，我是个情绪稳定的成年人。",v:"H"},
       {l:"B",t:"立刻把按钮抠下来吞进肚子里，让所有人都按不成。",v:"X"},
       {l:"C",t:"当着TA的面，挑衅地盯着TA的眼睛慢慢按下去，看TA能怎样。",v:"B"},
       {l:"D",t:"没收盲盒，警告周围的人：谁敢按我打断谁的手。",v:"T"}]},
   {q:"伴侣惹你生了大气，以下哪种道歉方式最能让你瞬间消气？",
-   o:[{l:"A",t:"自己去墙角罚站，或者把戒尺双手奉上任凭处置。",v:"T"},
+   o:[{l:"A",t:"自己去墙角罚站，或者把戒尺双手奉上任凭处置。",v:"B"},
       {l:"B",t:"强吻、壁咚，什么都别说，直接用身体堵住我的嘴。",v:"P"},
       {l:"C",t:"熬夜写一篇八百字小作文，深刻反思逻辑漏洞。",v:"M"},
       {l:"D",t:"原地后空翻，尖叫\"我是滚筒洗衣机\"逗我笑。",v:"X"}]},
   {q:"对方在情到浓时，突然不轻不重地咬了你的脖子一口。",
-   o:[{l:"A",t:"瞬间腿软，一种诡异的酥麻感伴随痛感直冲天灵盖。",v:"P"},
+   o:[{l:"A",t:"瞬间腿软，一种诡异的酥麻感伴随痛感直冲天灵盖。",v:"M"},
       {l:"B",t:"很好，你成功引起了我的注意，等下我会双倍咬回来。",v:"T"},
       {l:"C",t:"立刻抹点番茄酱在脖子上，倒在地上疯狂抽搐装死。",v:"X"},
-      {l:"D",t:"大怒：\"你有狂犬病啊！留个印子我明天怎么去公司！\"",v:"H"}]},
+      {l:"D",t:"大怒：\"你有狂犬病啊！留个印子我明天怎么去公司！\"",v:"C"}]},
   {q:"结束牛马的一天，脱下鞋袜的那一刻，你的灵魂救赎机制是：",
    o:[{l:"A",t:"踢进脏衣篓，多闻一秒都是对鼻腔不可逆的霸凌。",v:"H"},
       {l:"B",t:"忍不住凑近深吸一口专属原味，大脑皮层瞬间安抚。",v:"F"},
       {l:"C",t:"强迫伴侣闻，看着对方极度嫌弃的表情我会很爽。",v:"T"},
       {l:"D",t:"找个玻璃罐把袜子密封供奉起来，每天睡前磕三个头。",v:"X"}]},
-  {q:"和伴侣走在街上，迎面走来的陌生人盯着你的伴侣看了足足5秒。",
-   o:[{l:"A",t:"默默挡在身前，用杀人的眼神瞪回去，心里已判了死刑。",v:"C"},
-      {l:"B",t:"兴奋起来，觉得很刺激，甚至想问伴侣被看爽不爽。",v:"O"},
-      {l:"C",t:"表面没看见，回家后以此为借口进行惩罚性教育。",v:"T"},
-      {l:"D",t:"走上前舔一下伴侣的脸，向陌生人进行撒尿圈地宣示。",v:"X"}]},
-  {q:"你们在一家高层全景落地窗的酒店房间，外面是繁华夜景。",
-   o:[{l:"A",t:"把对方按在玻璃上，强迫TA看着外面车水马龙的街道。",v:"T"},
-      {l:"B",t:"偏要在窗前，享受那种\"仿佛会被全城人看到\"的背德感。",v:"O"},
-      {l:"C",t:"穿上蜘蛛侠紧身衣，脸贴在玻璃上观察楼下路人。",v:"X"},
-      {l:"D",t:"赶紧拉上窗帘，万一有无人机偷拍呢。",v:"C"}]},
+  {q:"如果外面有人明显对你上头了，你最想看伴侣怎么接这个招？",
+   o:[{l:"A",t:"不动声色地把我拉回身边，眼神和动作都在说：这个人归我。",v:"C"},
+      {l:"B",t:"先不急着打断，甚至顺水推舟看戏，回头再私下跟我算总账。",v:"T"},
+      {l:"C",t:"别拦，最好还带点看热闹的兴奋感，让场面再暧昧一点。",v:"O"},
+      {l:"D",t:"当场开始演，直接把局面搞成一场离谱修罗场，谁都别想体面下桌。",v:"X"}]},
+  {q:"你们在高层酒店房间，窗外是整座城市的夜景。这个场景最让你上头的点是：",
+   o:[{l:"A",t:"把对方逼到窗前，自己掌控视线、距离和节奏。",v:"T"},
+      {l:"B",t:"那种仿佛随时会被看见、但又没人真的看见的危险错觉。",v:"O"},
+      {l:"C",t:"最后还是要把窗帘拉上，真正放开必须发生在彻底私密的空间里。",v:"C"},
+      {l:"D",t:"先不急着碰人，光是夜景、玻璃倒影和气氛就足够让我脑内过载。",v:"M"}]},
   {q:"你在刷\"ASMR颅内高潮\"音频，最受不了哪种声音？",
    o:[{l:"A",t:"贴着耳朵的低音炮，用气声说一些略带挑逗的粗口脏话。",v:"M"},
-      {l:"B",t:"雨声、翻书声、白噪音，我就是单纯助眠的。",v:"H"},
+      {l:"B",t:"雨声、翻书声、白噪音，我就是单纯助眠的。",v:"P"},
       {l:"C",t:"长达两小时的拖拉机启动和生锈齿轮摩擦声。",v:"X"},
-      {l:"D",t:"皮鞭破空声，或剪刀在耳边咔嚓咔嚓的声音。",v:"P"}]},
+      {l:"D",t:"皮鞭破空声，或剪刀在耳边咔嚓咔嚓的声音。",v:"M"}]},
   {q:"闭上眼睛，以下哪种材质的触感最让你浮想联翩？",
-   o:[{l:"A",t:"冰冷坚硬的金属铐，或带点粗糙摩擦感的麻绳。",v:"P"},
+   o:[{l:"A",t:"冰冷坚硬的金属铐，或带点粗糙摩擦感的麻绳。",v:"M"},
       {l:"B",t:"刚晒过太阳、带着微风气息的柔软纯棉白床单。",v:"H"},
       {l:"C",t:"极其丝滑、包裹性极强、让人无法呼吸的紧身乳胶。",v:"F"},
       {l:"D",t:"一大张防震气泡膜，我必须把每一个泡泡都捏爆。",v:"X"}]},
@@ -584,17 +605,17 @@ const QS = [
    o:[{l:"A",t:"需要剧本才能活！我一个人就能演完整出甄嬛传加黑客帝国。",v:"O"},
       {l:"B",t:"太尴尬了，我会一秒出戏狂笑，这不符合现实。",v:"C"},
       {l:"C",t:"哪怕去楼下买菜，我也坚持穿着恐龙充气连体服。",v:"X"},
-      {l:"D",t:"虽然有点羞耻，但如果伴侣强烈要求，我愿意配合。",v:"H"}]},
-  {q:"如果把你关在一个密闭房间里24小时，你希望里面有什么？",
-   o:[{l:"A",t:"伴侣被五花大绑在椅子上，而我手里有一堆奇怪的小玩具。",v:"T"},
-      {l:"B",t:"一面巨大的单向玻璃，我能看清外面，外面看不到我。",v:"O"},
-      {l:"C",t:"好吃好喝、满格WiFi和舒服的床，这是打工人的天堂。",v:"H"},
-      {l:"D",t:"只有一面白墙，我打算用24小时教墙壁背诵圆周率后百位。",v:"X"}]},
-  {q:"难得的双休日，关于约会行程，你最爽的状态是：",
-   o:[{l:"A",t:"\"大脑已托管，把我塞进副驾驶，随便去哪把我卖了都行。\"",v:"B"},
-      {l:"B",t:"去公园带把铁锹，挖一个五米深的大坑，感受大地母亲。",v:"X"},
-      {l:"C",t:"\"我做好了精确到分钟的PPT攻略，你人带上跟本王走。\"",v:"T"},
-      {l:"D",t:"\"别搞那么累，随便找个有空调的商场瞎逛逛吃点东西吧。\"",v:"H"}]},
+      {l:"D",t:"虽然有点羞耻，但如果伴侣强烈要求，我愿意配合。",v:"B"}]},
+  {q:"如果今晚你和伴侣被放进一个完全不会被打扰的私密空间，你最想先发生的是：",
+   o:[{l:"A",t:"把TA固定在某个位置上，慢慢掌控节奏和反应。",v:"T"},
+      {l:"B",t:"保留一个能看、能记录、能观察的角度，让气氛更危险一点。",v:"O"},
+      {l:"C",t:"先把灯光、床、温度、食物和身体状态都调到最舒服，再开始。",v:"P"},
+      {l:"D",t:"我已经在脑内写完了一整套离谱实验流程，今晚谁都别想正常离开。",v:"X"}]},
+  {q:"如果今天的约会从第一分钟就要进入你最爽的状态，你更想怎么开场？",
+   o:[{l:"A",t:"\"把我带走就行，我今天只负责跟着你，别让我做决定。\"",v:"B"},
+      {l:"B",t:"\"先干点离谱的，正常人不会这么开始一天。\"",v:"X"},
+      {l:"C",t:"\"我来定路线、节奏和规则，你人跟上就行。\"",v:"T"},
+      {l:"D",t:"\"先找个舒服又能贴在一起的地方，慢慢热起来，比瞎折腾重要。\"",v:"P"}]},
   {q:"你认为以下哪句话，比普通的\"我爱你\"更让你有感觉？",
    o:[{l:"A",t:"\"你看你现在这副毫无防备的样子，真的是太可怜了。\"",v:"T"},
       {l:"B",t:"\"除了我，这世界上到底还有谁能受得了你这副德行？\"",v:"M"},
@@ -603,16 +624,16 @@ const QS = [
   {q:"什么样的\"制服\"最能精准击溃你的最后一道心理防线？",
    o:[{l:"A",t:"充满压迫感的修身军装、警服，或带白手套的医生服。",v:"T"},
       {l:"B",t:"充满废土气息、破破烂烂的赛博朋克风机甲外骨骼。",v:"F"},
-      {l:"C",t:"干净清爽、带洗衣液香味的白衬衫或百褶裙校园风。",v:"H"},
+      {l:"C",t:"干净清爽、带洗衣液香味的白衬衫或百褶裙校园风。",v:"F"},
       {l:"D",t:"一套能发射掌心炮并自动导航飞行的钢铁侠战甲。",v:"X"}]},
   {q:"面对极度疲惫的工作，你最想要的解压发泄方式是：",
    o:[{l:"A",t:"找个树洞或熟人疯狂吐槽，倾泻掉所有负能量。",v:"M"},
-      {l:"B",t:"经历一场剧烈的、疯狂出汗的、甚至带点痛感的体力消耗。",v:"P"},
-      {l:"C",t:"点一顿极其奢侈的外卖暴饮暴食，然后倒头狂睡十二小时。",v:"H"},
+      {l:"B",t:"经历一场剧烈的、疯狂出汗的、甚至带点痛感的体力消耗。",v:"M"},
+      {l:"C",t:"点一顿极其奢侈的外卖暴饮暴食，然后倒头狂睡十二小时。",v:"P"},
       {l:"D",t:"在狂风暴雨中站在马路中间，张开双臂像反派一样狂笑。",v:"X"}]},
   {q:"如果伴侣坦白对某种无生命的物件（如特定车型、手办）有某种冲动：",
    o:[{l:"A",t:"狂喜，立刻打开新世界大门，问\"要不要把我打扮成那个？\"",v:"F"},
-      {l:"B",t:"大受震撼三观尽毁，连夜扛着绿皮火车跑路，火速提分手。",v:"H"},
+      {l:"B",t:"大受震撼三观尽毁，连夜扛着绿皮火车跑路，火速提分手。",v:"C"},
       {l:"C",t:"尊重祝福，理解世界的参差，但我不参与，觉得有点变态。",v:"H"},
       {l:"D",t:"我懂，为了配合你，我愿意明天就去改装厂变成一辆马自达。",v:"X"}]},
   {q:"对方穿戴整齐准备出门上班，哪个细节会让你突然\"性致大发\"？",
@@ -626,15 +647,15 @@ const QS = [
       {l:"C",t:"故意在职业装里穿极其惹火的贴身衣物，享受随时社死的刺激。",v:"O"},
       {l:"D",t:"戴上降噪耳机，找个角落闭目养神，开启省电摸鱼模式。",v:"C"}]},
   {q:"如果伴侣送你一个带铃铛的精致项圈作为礼物，你会：",
-   o:[{l:"A",t:"\"你是变态吗？拿我当什么了？\"立刻生气把它扔进垃圾桶。",v:"H"},
+   o:[{l:"A",t:"\"你是变态吗？拿我当什么了？\"立刻生气把它扔进垃圾桶。",v:"C"},
       {l:"B",t:"反手把它扣在对方的脖子上，冷笑着说：\"该戴上的是你吧？\"",v:"X"},
       {l:"C",t:"默默配合戴上，心里隐隐期待对方摸着头叫自己一声\"乖狗狗\"。",v:"B"},
       {l:"D",t:"给家里的毛绒小熊戴上，然后坐在旁边面带微笑观察一整天。",v:"O"}]},
   {q:"吵架吵到濒临崩溃的最凶阶段，你最吃哪一套？",
-   o:[{l:"A",t:"对方突然用极具压迫感的命令口吻吼一句：\"给我闭嘴，过来！\"",v:"T"},
+   o:[{l:"A",t:"对方突然用极具压迫感的命令口吻吼一句：\"给我闭嘴，过来！\"",v:"B"},
       {l:"B",t:"突然开始流利地说克林贡语或文言文，进行语言学降维打击。",v:"X"},
       {l:"C",t:"对方红着眼眶，什么也不说，一边哭一边死死抱住我不撒手。",v:"M"},
-      {l:"D",t:"双方冷静下来，拉个Excel表格盘点逻辑，把道理讲清楚。",v:"H"}]},
+      {l:"D",t:"双方冷静下来，拉个Excel表格盘点逻辑，把道理讲清楚。",v:"M"}]},
   {q:"在一段亲密关系中，你觉得\"安全感\"的终极防线是：",
    o:[{l:"A",t:"我随时拥有摧毁对方社交和生活的能力，但对方依然离不开我。",v:"T"},
       {l:"B",t:"我们共同掌握着一个在瑞士银行的加密离岸账户和核弹发射密码。",v:"X"},
@@ -668,117 +689,220 @@ const QS = [
       {l:"D",t:"粘贴了一份详细的体检报告，要求对方\"身体健康、无病无灾\"。",v:"H"}]}
 ];
 
+const AUDIENCE_COPY = {
+  0:{
+    q:{
+      base:'公司年会，高冷的领导突然盯着你，用压迫感极强的低音缓缓说：“你最近很乖，我很满意。”',
+      male_target:'公司年会，高冷的男上司突然盯着你，用压迫感极强的低音缓缓说：“你最近很乖，我很满意。”',
+      female_target:'公司年会，气场强得让人不敢乱动的女上司忽然看向你，慢条斯理地说：“你最近很乖，我很满意。”',
+      fluid_target:'公司年会，那个气场压得你呼吸都慢半拍的人突然盯着你，缓缓说：“你最近很乖，我很满意。”'
+    },
+    o:[
+      {t:{base:'表面波澜不惊，心里疯狂摇尾巴，脚趾已经在鞋里抠出了一座迪士尼。',male_target:'表面波澜不惊，心里已经被他的低音和眼神拿捏住了。',female_target:'表面还在装镇定，心里已经被她那种居高临下的气场狠狠干翻。',fluid_target:'表面没反应，心里已经被这种压迫感和掌控欲狠狠干翻。'}},
+      {t:{base:'反瞪回去冷笑：“装什么，信不信今晚让你跪着唱征服？”',male_target:'反瞪回去冷笑：“装什么，信不信今晚让你跪着唱征服？”',female_target:'抬眼顶回去：“你这点女王气场，也就够吓唬别人。”',fluid_target:'反瞪回去冷笑：“装什么，信不信今晚让你跪着唱征服？”'}},
+      {t:{base:'顺势躺在地上，抱住大腿大喊：“汪汪！老板再骂两句！”',male_target:'顺势躺地上抱住他的大腿：“汪汪！老板再骂两句！”',female_target:'顺势躺地上抱住她的大腿：“汪汪！老板再骂两句！”',fluid_target:'顺势躺地上抱住对方的大腿大喊：“汪汪！再骂两句！”'}},
+      {t:{base:'神经病啊，又来PUA，立马打开BOSS直聘开溜。',male_target:'神经病啊，又来PUA，立马打开BOSS直聘开溜。',female_target:'有病吧，这种压迫感留给别人消受，我先跑路。',fluid_target:'神经病啊，这种控制欲谁爱接谁接，我先开溜。'}}
+    ]
+  },
+  2:{
+    q:{base:'伴侣惹你生了大气，以下哪种道歉方式最能让你瞬间消气？',male_target:'伴侣惹你生了大气，以下哪种道歉方式最能让你瞬间消气？',female_target:'伴侣把你惹炸了，以下哪种道歉方式最能让你瞬间消气？',fluid_target:'喜欢的人把你惹毛了，以下哪种道歉方式最能让你瞬间消气？'},
+    o:[
+      {t:{base:'自己去墙角罚站，或者把戒尺双手奉上任凭处置。',male_target:'自己去墙角罚站，或者把戒尺双手奉上任凭处置。',female_target:'乖乖站去墙角，把处置权全交出来。',fluid_target:'自己去墙角罚站，或者把“怎么罚都认”的态度摆明。'}},
+      {t:{base:'强吻、壁咚，什么都别说，直接用身体堵住我的嘴。',male_target:'强吻、壁咚，什么都别说，直接用身体和力气堵住我的嘴。',female_target:'直接把我按住，别解释，用那种不容反抗的气场让我闭嘴。',fluid_target:'什么都别说，直接把我按住，用身体和压迫感让我闭嘴。'}},
+      {t:{base:'熬夜写一篇八百字小作文，深刻反思逻辑漏洞。',male_target:'熬夜写一篇八百字小作文，认真复盘自己到底错在哪。',female_target:'写一大段长文，把自己哪句话、哪个眼神、哪个态度错了讲得明明白白。',fluid_target:'熬夜写一篇长长的小作文，把自己到底错在哪讲清楚。'}},
+      {t:{base:'原地后空翻，尖叫"我是滚筒洗衣机"逗我笑。',male_target:'原地后空翻，尖叫"我是滚筒洗衣机"逗我笑。',female_target:'当场演一段离谱到让人绷不住的抽象节目。',fluid_target:'原地整一段抽象狠活，把我气笑。'}}
+    ]
+  },
+  6:{
+    q:{base:'你们在高层酒店房间，窗外是整座城市的夜景。这个场景最让你上头的点是：',male_target:'你们在高层酒店房间，窗外是整座城市的夜景。这个场景最让你上头的点是：',female_target:'你们在高层酒店房间，窗外是一整城的霓虹夜色。这个场景最让你上头的点是：',fluid_target:'你们在高层酒店房间，窗外是热闹又危险的整座城市。这个场景最让你上头的点是：'},
+    o:[
+      {t:{base:'把对方逼到窗前，自己掌控视线、距离和节奏。',male_target:'把对方逼到窗前，自己掌控视线、距离和节奏。',female_target:'把她逼到窗前，自己拿住视线、距离和节奏。',fluid_target:'把对方逼到窗前，自己掌控视线、距离和节奏。'}},
+      {t:{base:'那种仿佛随时会被看见、但又没人真的看见的危险错觉。',male_target:'那种仿佛随时会被看见、但又没人真的看见的危险错觉。',female_target:'那种像是整座城市都在偷看她、但又没人真的抓到的危险错觉。',fluid_target:'那种仿佛随时会被看见、但又没人真的看见的危险错觉。'}},
+      {t:{base:'最后还是要把窗帘拉上，真正放开必须发生在彻底私密的空间里。',male_target:'最后还是要把窗帘拉上，真正放开必须发生在彻底私密的空间里。',female_target:'最后还是会把窗帘拉死，真正放开必须发生在彻底私密的空间里。',fluid_target:'最后还是要把窗帘拉上，真正放开必须发生在彻底私密的空间里。'}},
+      {t:{base:'先不急着碰人，光是夜景、玻璃倒影和气氛就足够让我脑内过载。',male_target:'先不急着碰人，光是夜景、玻璃倒影和气氛就足够让我脑内过载。',female_target:'先不急着碰她，光是夜景、玻璃倒影和那种危险氛围就够让我脑内过载。',fluid_target:'先不急着碰人，光是夜景、玻璃倒影和气氛就足够让我脑内过载。'}}
+    ]
+  },
+  7:{
+    o:[
+      {t:{female_target:'贴着耳边压低声线，用带点御姐感的气音慢慢说一些过界的话。'}}
+    ]
+  },
+  12:{
+    q:{base:'你认为以下哪句话，比普通的"我爱你"更让你有感觉？',male_target:'你认为以下哪句话，比普通的"我爱你"更让你有感觉？',female_target:'你觉得以下哪句话，比一句普通的"我爱你"更能精准击中你？',fluid_target:'以下哪句话，比普通的"我爱你"更容易让你心里一颤？'},
+    o:[
+      {t:{base:'"你看你现在这副毫无防备的样子，真的是太可怜了。"',male_target:'"你看你现在这副毫无防备的样子，真的是太可怜了。"',female_target:'"你现在这副任人拿捏的样子，真的让人很想欺负。"',fluid_target:'"你现在这副毫无防备的样子，真的让人很想欺负。"'}},
+      {t:{base:'"除了我，这世界上到底还有谁能受得了你这副德行？"',male_target:'"除了我，这世界上还有谁受得了你这副德行？"',female_target:'"除了我，谁还会这样惯着你、收着你？"',fluid_target:'"除了我，这世界上到底还有谁受得了你这副德行？"'}},
+      {t:{base:'"你的眼睛真好看，你是我见过最聪明、最善良的人。"',male_target:'"你的眼睛真好看，你是我见过最聪明、最善良的人。"',female_target:'"你这样看着我的时候，真的又漂亮又让人心软。"',fluid_target:'"你这样看着人的时候，真的很容易让人心软。"'}},
+      {t:{base:'"我刚才已经帮你把未来三十年的房贷和车贷全还清了。"',male_target:'"我刚才已经帮你把未来三十年的房贷和车贷全还清了。"',female_target:'"别说爱不爱了，我直接把你未来三十年的债都清了。"',fluid_target:'"别说爱不爱了，我直接把你未来三十年的债都清了。"'}}
+    ]
+  },
+  13:{
+    q:{base:'什么样的"制服"最能精准击溃你的最后一道心理防线？',male_target:'什么样的"制服"，最能精准击溃你的最后一道心理防线？',female_target:'什么样的"制服感"，最容易让你当场破防？',fluid_target:'什么样的"制服"或"权力感穿搭"，最能精准击溃你的最后一道心理防线？'},
+    o:[
+      {t:{base:'充满压迫感的修身军装、警服，或带白手套的医生服。',male_target:'剪裁锋利的军装、警服，或戴白手套的医生装，带一点禁欲上位者味道。',female_target:'贴身皮衣、利落制服裙、带压迫感的女王式职业装。',fluid_target:'那种一看就让人想低头的制服感，带着明显的权力和压迫气息。'}},
+      {t:{base:'充满废土气息、破破烂烂的赛博朋克风机甲外骨骼。',male_target:'破破烂烂的赛博机甲、废土外骨骼，像危险男主从末日里走出来。',female_target:'带废土感的赛博战损装，像会踩着高跟鞋从废墟里走出来的危险女人。',fluid_target:'带废土气息的赛博朋克外骨骼，像某种危险又不讲道理的存在。'}},
+      {t:{base:'干净清爽、带洗衣液香味的白衬衫或百褶裙校园风。',male_target:'干净清爽、带洗衣液香味的白衬衫和校园感，像那种表面斯文的男生。',female_target:'干净柔软的白衬衫、百褶裙、校园风，带一点乖顺又诱人的反差。',fluid_target:'干净清爽、带洗衣液香味的校园风穿搭，乖得让人想伸手碰一下。'}},
+      {t:{base:'一套能发射掌心炮并自动导航飞行的钢铁侠战甲。',male_target:'一套能发射掌心炮并自动导航飞行的钢铁侠战甲。',female_target:'一套美艳又离谱、还能边走边开火的科幻战甲。',fluid_target:'一套美得离谱、还能自动导航开火的科幻战甲。'}}
+    ]
+  },
+  16:{
+    q:{base:'对方穿戴整齐准备出门上班，哪个细节会让你突然"性致大发"？',male_target:'对方穿戴整齐准备出门上班，哪个细节会让你突然"性致大发"？',female_target:'对方打扮好准备出门，哪个细节会让你突然很想把她拽回来？',fluid_target:'对方收拾整齐准备出门，哪个细节会让你突然心跳失控？'},
+    o:[
+      {t:{base:'金丝眼镜反光，或衬衫袖口微挽，腕部那道低调而强势的权力感。',male_target:'金丝眼镜反光，衬衫袖口微挽，腕骨和手背那点克制的权力感。',female_target:'高跟鞋落地的声音、皮衣或西装外套贴着身体的线条、那种漂亮又危险的压迫感。',fluid_target:'某个细节忽然露出强势感，低调、克制，但一眼就让人腿软。'}},
+      {t:{base:'TA虽然西装革履，但只有你知道TA衣服里没穿内衣。',male_target:'他虽然西装革履，但只有你知道那层规整底下藏着一点失控和越界。',female_target:'她表面妆发精致、气场稳定，但只有你知道她那身漂亮皮囊底下藏着多危险的东西。',fluid_target:'TA表面收拾得完美无缺，但只有你知道那身规整底下藏着什么。'}},
+      {t:{base:'发现TA慌乱之中把衬衫纽扣扣错，或者裤子正反面穿反了。',male_target:'发现他慌乱之中把衬衫纽扣扣错，或者裤子正反面穿反了。',female_target:'发现她明明气场很稳，结果居然也会在慌乱里犯这种低级错误。',fluid_target:'发现TA明明看起来很稳，结果也会在慌乱里出这种小岔子。'}},
+      {t:{base:'早晨明媚的阳光恰好打在TA好看的侧脸上，温柔居家。',male_target:'早晨的光打在他好看的侧脸上，整个人干净、温柔、居家。',female_target:'阳光落在她的侧脸和锁骨上，漂亮得像一幅太近就会出事的画。',fluid_target:'早晨的光落在TA侧脸上，漂亮得让人一瞬间很想把TA拽回屋里。'}}
+    ]
+  },
+  17:{
+    q:{base:'参加极其无聊且全是大佬的严肃会议，你给自己找的乐子是：',male_target:'参加极其无聊且全是大佬的严肃会议，你给自己找的乐子是：',female_target:'参加一场无聊到要灵魂出窍的严肃会议，你会怎么偷偷找乐子？',fluid_target:'参加一场极其无聊的严肃会议时，你给自己找的乐子是：'},
+    o:[
+      {t:{base:'开始在脑子里进行微积分运算，计算会场能塞下多少只鸽子。',male_target:'开始在脑子里进行微积分运算，计算会场能塞下多少只鸽子。',female_target:'开始神游到一个和现实毫无关系的荒谬世界里。',fluid_target:'开始在脑子里胡乱开脑洞，把自己从会场里灵魂抽离。'}},
+      {t:{base:'盯着台上西装革履的演讲者，脑补TA被五花大绑哭着求饶。',male_target:'盯着台上西装革履的演讲者，脑补他失控、狼狈、彻底失去体面。',female_target:'盯着台上气场强硬的女人，脑补她卸下高跟鞋和体面之后会是什么样子。',fluid_target:'盯着台上那个一本正经的人，脑补TA失去体面之后会是什么样子。'}},
+      {t:{base:'故意在职业装里穿极其惹火的贴身衣物，享受随时社死的刺激。',male_target:'故意在职业装里藏一点见不得人的小心思，享受随时会暴露的刺激。',female_target:'穿得看似得体，实际上里面藏着一点极其危险又惹火的东西。',fluid_target:'表面体面得很，实际上衣服里藏着一点随时会让人社死的小秘密。'}},
+      {t:{base:'戴上降噪耳机，找个角落闭目养神，开启省电摸鱼模式。',male_target:'戴上降噪耳机，找个角落闭目养神，开启省电摸鱼模式。',female_target:'谁都别来碰我，我只想安静把自己藏起来续命。',fluid_target:'戴上耳机，把自己和这个会场彻底隔开，安静续命。'}}
+    ]
+  },
+  18:{
+    q:{base:'如果伴侣送你一个带铃铛的精致项圈作为礼物，你会：',male_target:'如果伴侣送你一个带铃铛的精致项圈作为礼物，你会：',female_target:'如果伴侣送你一个漂亮得过分、还带铃铛的项圈，你会：',fluid_target:'如果喜欢的人送你一个带铃铛的精致项圈作为礼物，你会：'},
+    o:[
+      {t:{base:'"你是变态吗？拿我当什么了？"立刻生气把它扔进垃圾桶。',male_target:'"你是变态吗？拿我当什么了？"立刻生气把它扔进垃圾桶。',female_target:'"漂亮也没用，别拿这种东西框我。"立刻拒绝。',fluid_target:'"别拿这种东西给我套身份。"当场拒绝。'}},
+      {t:{base:'反手把它扣在对方的脖子上，冷笑着说："该戴上的是你吧？"',male_target:'反手把它扣在对方脖子上，冷笑："该戴上的是你吧？"',female_target:'反手给她扣上，笑得很坏："这种东西比较适合你。"',fluid_target:'反手把它扣回去："该戴上的明明是你吧？"'}},
+      {t:{base:'默默配合戴上，心里隐隐期待对方摸着头叫自己一声"乖狗狗"。',male_target:'默默配合戴上，心里隐隐期待他摸着你的头叫一声"乖狗狗"。',female_target:'默默戴上，脑子里已经开始想象她居高临下看着你笑的样子。',fluid_target:'默默戴上，心里隐隐期待TA摸着你的头，叫你一声"乖"。'}},
+      {t:{base:'给家里的毛绒小熊戴上，然后坐在旁边面带微笑观察一整天。',male_target:'给家里的毛绒小熊戴上，然后坐在旁边面带微笑观察一整天。',female_target:'先不给自己戴，反而想看她把这种东西扣在别的什么上面时会是什么表情。',fluid_target:'先不给自己戴，反而想把它放在旁边，盯着看很久。'}}
+    ]
+  },
+  19:{
+    q:{base:'吵架吵到濒临崩溃的最凶阶段，你最吃哪一套？',male_target:'吵架吵到濒临崩溃的最凶阶段，你最吃哪一套？',female_target:'吵到快炸掉的时候，哪一套最能让你瞬间软下来？',fluid_target:'吵架吵到快崩的时候，你最吃哪一套？'},
+    o:[
+      {t:{base:'对方突然用极具压迫感的命令口吻吼一句："给我闭嘴，过来！"',male_target:'对方突然用压迫感极强的口吻命令你："给我闭嘴，过来。"',female_target:'她忽然压低声音，带着那种不容反抗的眼神说："闭嘴，过来。"',fluid_target:'对方忽然用极具压迫感的口吻命令你："给我闭嘴，过来。"'}},
+      {t:{base:'突然开始流利地说克林贡语或文言文，进行语言学降维打击。',male_target:'突然开始流利地说克林贡语或文言文，进行语言学降维打击。',female_target:'突然讲起一段谁都听不懂但气势很足的怪东西。',fluid_target:'突然切换到一种离谱语言系统，对你进行语言学降维打击。'}},
+      {t:{base:'对方红着眼眶，什么也不说，一边哭一边死死抱住我不撒手。',male_target:'对方红着眼，什么都不说，一边喘一边死死抱着你不撒手。',female_target:'她眼睛发红，嘴硬但手不松，抱着你像快要碎掉一样。',fluid_target:'对方眼睛发红，什么都不说，只是死死抱着你不撒手。'}},
+      {t:{base:'双方冷静下来，拉个Excel表格盘点逻辑，把道理讲清楚。',male_target:'双方冷静下来，拉个Excel表格盘点逻辑，把道理讲清楚。',female_target:'冷静下来，把每一句话、每一个逻辑点掰开揉碎讲清楚。',fluid_target:'双方冷静下来，把逻辑一条条摆出来，把话讲清楚。'}}
+    ]
+  },
+  24:{
+    q:{base:'如果可以用一句话定义你的"理想对象类型"，你会怎么写？',male_target:'如果可以用一句话定义你的"理想对象类型"，你会怎么写？',female_target:'如果只能用一句话定义你的"理想对象"，你会怎么写？',fluid_target:'如果可以用一句话定义你的"理想对象类型"，你会怎么写？'},
+    o:[
+      {t:{base:'用精确的人设描述，连发色、职业、说话方式都规定好了。',male_target:'用精确的人设描述，连发型、职业、说话方式、气质和穿衣习惯都规定好。',female_target:'写得非常细，连她的眼神、妆感、气场和走路方式都想好了。',fluid_target:'用精确的人设描述，连气质、说话方式和靠近你的感觉都规定好了。'}},
+      {t:{base:'只写"有意思的灵魂"，其他随缘，连性别都无所谓。',male_target:'只写"让我想低头的人"，其他随缘。',female_target:'只写"危险又漂亮的人"，其他随缘。',fluid_target:'只写"有意思的灵魂"，其他随缘，连性别都无所谓。'}},
+      {t:{base:'写了又删，删了又写，最终提交了一个空白表格。',male_target:'写了又删，删了又写，最终提交了一个空白表格。',female_target:'越写越觉得不对劲，最后干脆一个字都不交。',fluid_target:'写了又删，删了又写，最终什么都没提交。'}},
+      {t:{base:'粘贴了一份详细的体检报告，要求对方"身体健康、无病无灾"。',male_target:'要求对方身体健康、状态稳定，最好还有一点表面禁欲的克制感。',female_target:'要求对方身体健康、情绪稳定，最好漂亮得很有攻击性。',fluid_target:'要求对方身体健康、状态稳定，让人看着就觉得能放心靠近。'}}
+    ]
+  }
+};
+
 /* ════════════════════════
    RESULTS (16 base + 9 hidden)
 ════════════════════════ */
 const RS = {
   // ── 16 BASE ──
-  TMHC:{tag:"暴君",name:"绝对独裁的纯爱战神",emoji:"👔📋🔒",color:"#FF2D78",rarity:"~6%",
+  TMHC:{tag:"纯爱精神资本家",name:"纯爱精神资本家",emoji:"👔📋🔒",color:"#FF2D78",rarity:"~6%",
     vis:"一个穿着笔挺西装、单手推着金丝眼镜、另一只手拿着带密码锁公文包的扑克脸总裁。",
     core:"你的多巴胺建立在『精神碾压与绝对占有』之上。你不需要花里胡哨的物理道具，对你而言，看着一个独立、优秀的灵魂在你的指令下卸下防备、无条件服从，并在你设定的规则里运转，就是这个世界上最高级的春药。",
     profile:"你在现实生活中极大概率是个慕强且极具条理性的人（甚至有点强迫症）。你害怕失控，因此在亲密关系中必须手握绝对的方向盘。你用看似『霸道』的外壳，包裹着一颗极度护短的纯爱之心。你不是在谈恋爱，你是在搭建一个只有你们两个人的、由你制定法律的绝对帝国。",
     scene:"最让你热血沸腾的高光时刻：对方犯了错后，在安静的房间里，你居高临下地冷冷看着TA，用极其平静但压迫感极强的语调下达惩罚指令，而对方只能红着眼眶说『好的』。",
     danger:"对方在关系中过度强调『绝对平等』，事事都要AA制，或者对你的指令讨价还价，试图夺走你的主导权。",
     match:"天选羁绊：【修勾】BMHC / 宿命天敌：【流体】FLUID"},
-  TMHO:{tag:"导师",name:"蛊惑人心的精神黑客",emoji:"📢🔮🎭",color:"#BF00FF",rarity:"~4%",
+  TMHO:{tag:"顶级洗脑黑客",name:"顶级洗脑黑客",emoji:"📢🔮🎭",color:"#BF00FF",rarity:"~4%",
     vis:"一个拿着大喇叭、戴着墨镜、站在聚光灯下疯狂洗脑的西装暴徒。",
     core:"物理摩擦太低级，你的快感来源于『解构他人的自尊』。你极其擅长语言的把玩、情绪的推拉和精神施压。你不仅要掌控对方，你还渴望这种掌控带有某种暴露感或第三方视角的刺激。",
     profile:"你是一个极具个人魅力、情商极高的『危险分子』。你能在一秒钟内看穿别人的心理弱点，并且毫不留情地利用它。比起肉体，你更喜欢把玩对方的大脑。你享受看着对方在理智与羞耻之间苦苦挣扎，最终彻底崩溃的模样。",
     scene:"最让你热血沸腾的高光时刻：在一个人群熙熙攘攘的正经聚会上，你贴在对方耳边，用只有你们俩能听见的声音，轻描淡写地说出一句极具羞辱性和指令性的话，然后退开，微笑着欣赏对方瞬间涨红的脸和颤抖的身体。",
     danger:"伴侣是个完全没有羞耻心、或者精神防御如同铜墙铁壁的木头，让你的语言魔法像打在棉花上。",
     match:"天选羁绊：【盆栽】BMFO / 宿命天敌：【幽灵】GHOST"},
-  TMFC:{tag:"领主",name:"极端挑剔的高定典狱长",emoji:"🎩🧤⛓️",color:"#FFE600",rarity:"~3%",
+  TMFC:{tag:"重度恋物狱长",name:"重度恋物狱长",emoji:"🎩🧤⛓️",color:"#FFE600",rarity:"~3%",
     vis:"一个坐在真皮沙发上，手里把玩着一条领带，眼神极其挑剔的贵族。",
     core:"你将伴侣『客体化』了。比起复杂多变的人性，特定材质（如皮革、丝绸）、特定气味或特定的制服，更能给你带来确定性的快感。你的掌控欲是通过对视觉和触觉的绝对审美苛求来实现的。",
     profile:"你是个品味极佳但极其难伺候的细节控。你对美有一种不可救药的偏执。在你的XP结界里，对方不再是一个具有独立意志的人，而是一件由你亲自打磨、穿戴、陈列的顶级艺术品。",
     scene:"最让你热血沸腾的高光时刻：对方穿戴着你精心挑选的、极其昂贵但拘束感极强的特定配饰（比如无法正常走路的鞋子或紧绷的束腰），在完美布置的灯光下，像一件没有生命的雕塑般等待你的检阅。",
     danger:"伴侣是个极其邋遢、毫无美感的人，或者试图用廉价的蕾丝和劣质的道具来敷衍你的仪式感。",
     match:"天选羁绊：【快递】BPFC / 宿命天敌：【狂徒】TPFO"},
-  TMFO:{tag:"导演",name:"操控全局的楚门造物主",emoji:"📹🎬🕵️",color:"#00E5FF",rarity:"~2%",
+  TMFO:{tag:"远程社死导演",name:"远程社死导演",emoji:"📹🎬🕵️",color:"#00E5FF",rarity:"~2%",
     vis:"一个坐在无数监控屏幕前，戴着导演帽，手里拿着对讲机的幕后黑手。",
     core:"你的XP是『上帝视角』。你融合了精神施压、恋物和强烈的窥探/暴露欲。你不需要亲自下场肉搏，你只需要设定好剧本，把伴侣推向充满未知和羞耻的环境中，自己则在幕后操纵一切。",
     profile:"你拥有极其罕见且危险的宏大叙事型人格。地球对你来说就是一个巨大的情趣片场。你善于利用信息差和环境压迫感，把普通的日常约会变成一场充满禁忌感的社会实验。",
     scene:"最让你热血沸腾的高光时刻：让伴侣在衣服里藏着某个可以由你远程遥控的装置，然后派TA去和严肃的上司汇报工作。而你坐在隔壁的咖啡馆里，一边喝着咖啡，一边按下手中的最高频按钮。",
     danger:"伴侣极度在乎世俗眼光，死活不愿意踏出卧室的门半步，一到公共场合就立刻终止游戏。",
     match:"天选羁绊：【小白鼠】BPFO / 宿命天敌：【沙袋】BPHC"},
-  TPHC:{tag:"狼王",name:"咬痕标记的领地守卫",emoji:"💪🩹🔦",color:"#FF6B35",rarity:"~5%",
+  TPHC:{tag:"护食期狂犬病",name:"护食期狂犬病",emoji:"💪🩹🔦",color:"#FF6B35",rarity:"~5%",
     vis:"一个满身肌肉、脸上贴着创可贴、手里拿着一根荧光警棍的忠诚守卫。",
     core:"你对文绉绉的语言指令严重过敏，你的XP建立在『纯粹的物理压制与疼痛转移』上。你需要通过真实的肤觉接触、温度差、甚至轻微的痛感，来确认这个人真真切切地属于你。",
     profile:"你在现实中可能是不善言辞的行动派。你极度护短，领地意识极强，表达爱意的方式像极了野生动物的互相啃咬。你无法通过虚无缥缈的承诺获得安全感，『把你按在墙上动弹不得』才是你最高级的浪漫。",
     scene:"最让你热血沸腾的高光时刻：在对方试图反抗或喋喋不休时，用绝对的力量将TA死死按住，在TA的锁骨或后颈处狠狠咬下一个深红色的牙印，感受TA在你的绝对力量下喘息和屈服。",
     danger:"伴侣喜欢在亲密时刻和你讨论哲学，或者是一个绝对不能接受哪怕一丁点肢体弄疼的『瓷娃娃』。",
     match:"天选羁绊：【沙袋】BPHC / 宿命天敌：【导师】TMHO"},
-  TPHO:{tag:"猎手",name:"游走禁忌的午夜狂徒",emoji:"🌃🏃🌙",color:"#39FF14",rarity:"~3%",
+  TPHO:{tag:"法外实战狂徒",name:"法外实战狂徒",emoji:"🌃🏃🌙",color:"#39FF14",rarity:"~3%",
     vis:"一个穿着风衣，在黑夜的街头巡逻，眼神锐利且充满侵略性的夜行侠。",
     core:"环境压迫感是你的天然兴奋剂。你迷恋物理主导权，且极度渴望打破空间禁忌。酒店柔软的大床对你来说毫无吸引力，随时可能被人发现的『背德感』才是拉满你多巴胺的开关。",
     profile:"你是一个极度渴望刺激的肾上腺素瘾君子。你反感世俗的条条框框，骨子里有着强烈的反叛精神。你在用这种打破常规边界的方式，来对抗现实社会枯燥无味的规则。",
     scene:"最让你热血沸腾的高光时刻：在深夜无人的高楼落地窗前、或是某个随时可能有人经过的安全通道里，从背后将对方牢牢钳制住，强迫TA看着外面的世界，在恐惧和刺激的边缘疯狂试探。",
     danger:"伴侣极度缺乏安全感，永远只接受关灯、盖被子、且门必须反锁三道才敢开始的常规流程。",
     match:"天选羁绊：【暴露狂】BPHO / 宿命天敌：【佛陀】MONK"},
-  TPFC:{tag:"工匠",name:"沉迷力学的赛博刑具师",emoji:"⚙️🪢🔧",color:"#FF2D78",rarity:"~2%",
+  TPFC:{tag:"无情打结机器",name:"无情打结机器",emoji:"⚙️🪢🔧",color:"#FF2D78",rarity:"~2%",
     vis:"一个戴着护目镜、手里拿着绳子和各种金属零件疯狂组装的科学狂人。",
     core:"这是『极致痛觉依赖』与『深度恋物癖』的完美结合。你将性魅力具象化为了特定的材质（麻绳、金属、皮革）和物理力学。你通过剥夺对方的物理行动力，来获得精神上绝对的归属感。",
     profile:"你极具耐心、条理清晰，甚至有着工程师般的严谨。对你来说，限制对方的自由是一个神圣的仪式。你不追求狂暴的输出，你追求的是像解数学题一样，精确地计算每一个绳结的位置和每一寸皮肤的受力点。",
     scene:"最让你热血沸腾的高光时刻：花费整整四十分钟，心无旁骛地执行一套完美无瑕的物理束缚。当你打下最后一个结，退后两步欣赏对方被完美定型、动弹不得却又极具几何美感的状态。",
     danger:"伴侣毫无耐心，在进行仪式时不断催促『你搞快点，能不能直接开始正题』，瞬间毁掉你的神圣感。",
     match:"天选羁绊：【快递箱】BPFC / 宿命天敌：【吃瓜】BMHO"},
-  TPFO:{tag:"狂徒",name:"瓦解规则的哥谭爆破手",emoji:"💥🤡🎭",color:"#FF0044",rarity:"~2%",
+  TPFO:{tag:"封号边缘整活大师",name:"封号边缘整活大师",emoji:"💥🤡🎭",color:"#FF0044",rarity:"~2%",
     vis:"一个小丑涂装的面具人，扛着火箭筒，站在一片废墟上狂笑。",
     core:"探索欲的绝对极点。你融合了物理极限界限的试探、特定道具的狂热，以及完全开放和暴露的环境设定。所有的传统道德和安全词，在你的眼里都是用来粉碎的。",
     profile:"你极其不可预测。你有着极强的解构主义倾向，你从解构现有的道德底线中获得狂欢式的快感。只要社死的不是你，你就可以无底线地让伴侣社死。和你谈恋爱，就像在拍限制级动作片。",
     scene:"最让你热血沸腾的高光时刻：蒙上伴侣的眼睛，戴上隔音耳机，给TA穿上一套极度羞耻的定制装扮，然后直接把TA塞进汽车后备箱，开往一个TA完全不知道的公共荒野进行极限生存测试。",
     danger:"伴侣是一个处处在乎『社会信用评分』、凡事都要拿着规章制度办事、且一点风吹草动就会报警的守法公民。",
     match:"天选羁绊：【小白鼠】BPFO / 宿命天敌：【领主】TMFC"},
-  BMHC:{tag:"修勾",name:"极度缺爱的心机宠物",emoji:"🐕❤️😶",color:"#FF69B4",rarity:"~8%",
+  BMHC:{tag:"全职电子修勾",name:"全职电子修勾",emoji:"🐕❤️😶",color:"#FF69B4",rarity:"~8%",
     vis:"一个穿着社畜西装，头上长出两只垂下来的狗耳朵，眼巴巴等着被摸头的修勾。",
     core:"你的高潮开关是『语言的肯定与精神的交出』。你极度需要通过卸下人类的防御机制，被另一个特定的上位者精神圈养。一句粗暴但充满占有欲的夸奖，远胜过任何肉体接触。",
     profile:"你在白天可能是一个独立要强、甚至杀伐果断的成年人，但在亲密关系中，你极度渴望退行成一个不需要动脑的废物。你的臣服不是软弱，而是你最高级别的信任；你交出控制权，是为了换取绝对的安全感。",
     scene:"最让你热血沸腾的高光时刻：结束了疲惫的一天，你跪坐在对方脚边，把头轻轻搭在对方的膝盖上。对方毫不客气地揉乱你的头发，用低音炮说了一句：『今天表现不错，乖狗狗。』",
     danger:"对方是一个绝对的平权主义者，对你相敬如宾，无论你犯什么错都跟你讲大道理，剥夺了你受罚的乐趣。",
     match:"天选羁绊：【暴君】TMHC / 宿命天敌：【狂徒】TPFO"},
-  BMHO:{tag:"吃瓜",name:"自带弹幕的边缘受体",emoji:"🍿😳👀",color:"#00E5FF",rarity:"~5%",
+  BMHO:{tag:"自带弹幕的牛头人",name:"自带弹幕的牛头人",emoji:"🍿😳👀",color:"#00E5FF",rarity:"~5%",
     vis:"一个抱着爆米花、戴着VR眼镜，在角落里瑟瑟发抖又忍不住偷看的吃瓜群众。",
     core:"你极其罕见地融合了『精神受虐』和『低占有欲』。你不需要成为对方宇宙的中心，你甚至沉迷于被忽视、被剥夺、或在多人动态中处于边缘弱势地位所带来的奇异快感。",
     profile:"你的心理韧性极强，且有着一种看透红尘的吃瓜心态。你像水一样流动，缺乏传统意义上的嫉妒心。别人眼里的『绿帽』或『NTR』危机，在你看来可能是一场极其刺激的多人戏剧。",
     scene:"最让你热血沸腾的高光时刻：坐在昏暗房间的角落里，像一个隐形人一样，看着你的伴侣在你的面前，用你熟悉的方式去掌控、甚至挑逗另一个人，而你只能在一旁默默咽口水。",
     danger:"伴侣是一个控制欲极强且病态专一的占有狂，把你锁在屋子里，切断你一切外界联络，让你失去观察的乐趣。",
     match:"天选羁绊：【导演】TMFO / 宿命天敌：【工匠】TPFC"},
-  BMFC:{tag:"异宠",name:"闻着气味入睡的电子绒毛",emoji:"🐾👃🪣",color:"#FF69B4",rarity:"~4%",
+  BMFC:{tag:"异化毛绒挂件",name:"异化毛绒挂件",emoji:"🐾👃🪣",color:"#FF69B4",rarity:"~4%",
     vis:"一个人形轮廓，头上戴着硕大的兽耳，嘴里叼着一只原味袜子，捧着铁盆写着\"求投喂\"。",
     core:"你的终极救赎是『物种退化与责任卸载』。做人类实在太累了，你不需要平等对话，你只需要通过特定的物件（如原味衣物）或非人类形态（如毛绒耳朵、尾巴），彻底切断大脑的逻辑中枢，退化成一只被饲养的赛博宠物。",
     profile:"你在现实中往往是个高度社会化、甚至有点疲惫的打工人。你讨厌成人世界的复杂博弈。特定的 Fetish（恋物）是你的一键休眠按钮。在这个设定的结界里，你不必买房、不必内卷、不必做决策，你唯一的任务就是『可爱』和『被摸头』。",
     scene:"最让你热血沸腾的高光时刻：戴着毛茸茸的耳朵和专属项圈，蜷缩在床脚或地毯上。伴侣并不把你当人看，而是像撸猫一样随手挠着你的下巴，而你手里攥着带有对方浓烈气息的衣服，安心地闭上眼睛。",
     danger:"在『游戏时间』里，伴侣突然跟你聊起明天的房租、工作计划或者问你『你想吃什么』，瞬间把你拉回残酷的人类现实。",
     match:"天选羁绊：【工匠】TPFC / 宿命天敌：【纯爱】VANILLA"},
-  BMFO:{tag:"盆栽",name:"自带摄像头的赛博植物",emoji:"🌿📷⛓️",color:"#39FF14",rarity:"~3%",
+  BMFO:{tag:"互联网共享盆栽",name:"互联网共享盆栽",emoji:"🌿📷⛓️",color:"#39FF14",rarity:"~3%",
     vis:"一棵长在花盆里、被铁链锁着，但头上顶着一个全景摄像头四处张望的植物。",
     core:"你极其危险地交织了『受虐心理』与『暴露/窥视特质』。你不满足于私下的臣服，你渴望这种『被当作物件把玩』的状态被更多人、甚至全网观测。你在放弃隐私和尊严的边缘，体验到一种破罐子破摔的极致自由。",
     profile:"你拥有极强的反叛精神和虚无主义倾向。传统道德观绑架不了你，因为你已经自愿把自己降维成了一株『观赏植物』。你把自己的身体和尊严当成了一场大型行为艺术的载体，越是社死，多巴胺分泌越是狂暴。",
     scene:"最让你热血沸腾的高光时刻：穿着极度羞耻的特定装扮，被锁在一个半开放的房间（或连着直播镜头的密室）里，你的伴侣向TA信任的『观众』展示你、点评你，而你只能红着脸全盘接受这种被围观的凝视。",
     danger:"伴侣是一个嫉妒心爆表、有严重护食倾向的『病娇』，试图把你永远锁在没有网的地下室里，断绝你被外界观测的可能。",
     match:"天选羁绊：【导师】TMHO / 宿命天敌：【幽灵】GHOST"},
-  BPHC:{tag:"沙袋",name:"自备创可贴的纯爱战损",emoji:"😊🩹✨",color:"#FF69B4",rarity:"~5%",
+  BPHC:{tag:"纯爱人形沙袋",name:"纯爱人形沙袋",emoji:"😊🩹✨",color:"#FF69B4",rarity:"~5%",
     vis:"一个身上缠满绷带、但脸上挂着诡异幸福微笑的布娃娃。",
     core:"相敬如宾会让你枯萎，你的灵魂充电线是『痛觉依赖』。你大脑的奖励机制与轻微的物理痛感（咬痕、拍打、束缚）深度绑定。对你而言，疼痛不是伤害，而是一种强制把你拉回当下的锚点，是对方爱意最浓烈的实体证明。",
     profile:"你在生活中可能存在轻度的焦虑、讨好型人格或是麻木感。你很难通过轻飘飘的情话获得安全感。你像一个需要被『物理重启』的机器，只有当身体感受到强烈的界限和重压时，你内心的噪音才会瞬间安静下来。",
     scene:"最让你热血沸腾的高光时刻：在封闭的私密空间里，被对方毫不留情地逼到体力的极限，身上留下绯红的印记。然后在你精疲力尽、眼角挂着泪水时，对方突然变得极度温柔，把你抱在怀里细心地为你擦汗上药。",
     danger:"伴侣过于温柔怯懦，全程如履薄冰，每碰你一下都要问『疼不疼？要不要停？』，让你刚刚燃起的火苗瞬间熄灭。",
     match:"天选羁绊：【狼王】TPHC / 宿命天敌：【吃瓜】BMHO"},
-  BPHO:{tag:"诱饵",name:"游走危险边缘的炸弹",emoji:"⚡💣🔥",color:"#FFE600",rarity:"~3%",
+  BPHO:{tag:"随时社死体验卡",name:"随时社死体验卡",emoji:"⚡💣🔥",color:"#FFE600",rarity:"~3%",
     vis:"一个在风衣里穿戴着极其危险的秘密武器，走在街上随时准备敞开风衣的神秘客。",
     core:"你是个纯粹的肾上腺素飙升狂热者。你融合了『肢体受限的快感』与『公共场合的危机感』。如果卧室里的运动是温开水，那你追求的就是在悬崖边跳舞，『随时可能被发现并身败名裂』就是你最好的催情药。",
     profile:"你有一颗极度躁动的心。你讨厌一成不变的日常，喜欢在安全与危险的灰色地带反复横跳。你用这种向外扩张的刺激感，来掩盖内心深处对平庸生活的恐惧。和你在一起，每一天都在做贼。",
     scene:"最让你热血沸腾的高光时刻：在灯光通明、人声鼎沸的高级餐厅里，你表面上端庄地切着牛排，但在桌布的掩护下，你的双手正被伴侣用领带死死绑住，且对方正在用脚尖挑逗你的小腿，而服务员正向你们走来。",
     danger:"伴侣是个极度在乎『社会信用评分』、甚至有点社恐的老实人，认为你的这些想法『伤风败俗』并严厉拒绝。",
     match:"天选羁绊：【猎手】TPHO / 宿命天敌：【佛陀】MONK"},
-  BPFC:{tag:"盲盒",name:"把自己打包寄出的死物",emoji:"📦🪢🏷️",color:"#888",rarity:"~3%",
+  BPFC:{tag:"专属重绑死物",name:"专属重绑死物",emoji:"📦🪢🏷️",color:"#888",rarity:"~3%",
     vis:"一个被胶带和麻绳完美捆绑成正方体、上面贴着\"易碎品\"标签的快递箱。",
     core:"你的终极梦想是变成一个『没有任何行动能力的死物』。这是臣服、物理痛觉与恋物癖的最硬核结合——重度拘束。当你物理上完全失去反抗能力，化身为伴侣的物件时，你的精神焦虑达到了绝对的零度。",
     profile:"这是一种极其深邃的禅意体验（Subspace）。你或许在现实中承担了过重的责任，导致你渴望一种极致的托付。谁能把你绑得最结实、最讲究物理力学与几何美感，谁就能连根拔起你的灵魂。",
     scene:"最让你热血沸腾的高光时刻：被蒙上眼睛、堵住嘴巴，用极其繁复且专业的绳结技术（如日式绑缚）牢牢固定成一个无法动弹的完美形态，然后被悬挂或放置在黑暗中，完全不知道对方下一步会做什么。",
     danger:"伴侣是个毫无美感和耐心的莽夫，随便拿根粗糙的绳子乱捆一气，不仅勒得生疼，还在视觉上极其丑陋。",
     match:"天选羁绊：【工匠】TPFC / 宿命天敌：【流体】FLUID"},
-  BPFO:{tag:"白鼠",name:"放弃人类尊严的实验体",emoji:"🐁🔬🌐",color:"#00E5FF",rarity:"~2%",
+  BPFO:{tag:"公共受虐耗材",name:"公共受虐耗材",emoji:"🐁🔬🌐",color:"#00E5FF",rarity:"~2%",
     vis:"一个身上插满感应线、戴着眼罩、在众目睽睽之下进行极限测试的赛博小白鼠。",
     core:"你的XP系统已经进化到了人类难以理解的第四维度。你没有任何物理底线，或者说你的底线就是用来突破的。只要有强烈的感官刺激，加上被围观或开放环境的属性，你连外星人的解剖台都敢上去躺一躺。",
     profile:"终极的感官探索者。你把自己的身体当成了一场大型行为艺术的试验田。你不追求情感共鸣，你追求的是超越碳基生物极限的生理与心理震荡。你游走在封号和社死的边缘，是真正的赛博疯子。",
@@ -787,63 +911,63 @@ const RS = {
     match:"天选羁绊：【导演】TMFO / 宿命天敌：【纯爱】VANILLA"},
 
   // ── 9 HIDDEN ──
-  SWITCH:{tag:"魔方",name:"随时倒戈的赛博变形兽",emoji:"⚡🔄💫",color:"#BF00FF",rarity:"~7%",hidden:true,
+  SWITCH:{tag:"薛定谔的攻受",name:"薛定谔的攻受",emoji:"⚡🔄💫",color:"#BF00FF",rarity:"~7%",hidden:true,
     vis:"一个穿着可以正反两面穿的夹克，一面写着\"BOSS\"一面写着\"宝宝\"，表情温柔又危险的双面人。",
     core:"【隐藏结局解锁】你的核心在于『流动的权力动态』。你不是无法决定做S还是M，而是你极其敏锐地抓住了这两种角色的灵魂。你能向下兼容做一只温顺的狗，也能瞬间暴起成为踩在对方胸口的王。",
     profile:"你拥有极高的情绪智商、共情能力和极度旺盛的探索欲。你像一个在不同剧本里无缝切换的顶级演员。权力的交替更迭对你来说是一场华丽的双人舞，你最害怕的就是关系变成一滩不流动的死水。",
     scene:"最让你热血沸腾的高光时刻：前半夜你还戴着项圈跪在地上哭着求饶，但在伴侣松懈的某一秒，你突然发力将TA反压在床上，夺过TA手里的道具，在TA耳边轻笑：『游戏结束了，现在轮到我了。』",
     danger:"伴侣是一个极其死板的单向人格（比如一个绝对的慕强Sub，当你偶尔想示弱撒娇时，TA会觉得天塌了）。",
     match:"天选羁绊：另一个【魔方】SWITCH / 宿命天敌：所有执着于刻板印象的单一人格"},
-  VANILLA:{tag:"信徒",name:"误入暗网的纯爱战神",emoji:"🌸🍦✨",color:"#FF69B4",rarity:"~3%",hidden:true,
+  VANILLA:{tag:"扫黄打非办卧底",name:"扫黄打非办卧底",emoji:"🌸🍦✨",color:"#FF69B4",rarity:"~3%",hidden:true,
     vis:"一个穿着纯白睡衣、抱着一只大白猫、面带平静微笑的人，周围是粉色爱心和棉花糖。",
     core:"【隐藏结局解锁】在所有人都在卷XP、找刺激的时代，你的XP系统极其复古且坚定——『只做爱，不搞怪』。你需要极度的情感安全、灵魂的共鸣和温热的碳基肉体。那些花里胡哨的道具和精神虐待只会让你觉得下头。",
     profile:"你是这个满是『变态』的测试里的一股清流。你大概率拥有极其健康的依恋模式和原生家庭。你的自我极其完整，不需要通过控制、痛觉或受虐来填补内心的空洞。你的『正常』，在这个时代反而成了最稀缺的特质。",
     scene:"最让你热血沸腾的高光时刻：阳光洒在柔软干净的床单上，没有鞭子，没有羞辱。你们看着彼此的眼睛，在极度温柔、缠绵、充满爱意和尊重的气氛中，完成一场酣畅淋漓的身心交融，事后紧紧相拥入眠。",
     danger:"伴侣非要整活，在你情到浓时突然扇你一巴掌，或者掏出一个奇怪的道具，瞬间把你吓得当场萎靡/干涸并想报警。",
     match:"天选羁绊：三观一致的普通人 / 宿命天敌：【邪神】CHAOS 及所有带F（恋物）和P（痛觉）的极端人格"},
-  GHOST:{tag:"幽灵",name:"潜行于暗网的偏执狂",emoji:"👻🔍🗝️",color:"#888",rarity:"~2%",hidden:true,
+  GHOST:{tag:"暗中视奸狂魔",name:"暗中视奸狂魔",emoji:"👻🔍🗝️",color:"#888",rarity:"~2%",hidden:true,
     vis:"一个身穿隐身斗篷、手持放大镜、背后跟着一个巨大剪贴簿（里面全是对方的照片）的神秘侦探。",
     core:"【隐藏结局解锁】你的 XP 是『绝对的单向观测与概念占有』。你没有强烈的控制欲（T），也不想被控制（B），你甚至连肢体接触的欲望都很低。你只需要一种极致的、排他性的数字/物理档案收集，来确认对方完完全全属于你。",
     profile:"你是一个隐形的病娇。你拥有极端的安全距离需求。比起面对面充满未知的人际交往，你更喜欢在暗处收集伴侣的掉落物、照片、甚至毛发。你不需要对方在现实里对你唯命是从，因为在你的精神硬盘里，TA 已经被你永久归档了。",
     scene:"最让你热血沸腾的高光时刻：伴侣在床上熟睡，而你坐在微弱的电脑屏幕前，心无旁骛地为 TA 今天发出的 125 条微信语音打标签、分类，并将 TA 刚剪下的指甲小心翼翼地放进第 47 号标本瓶里。",
     danger:"伴侣突然觉醒了数字极简主义，注销了所有社交账号，并定期清理手机数据，让你的『观测源』瞬间枯竭。",
     match:"天选羁绊：毫无察觉的粗线条伴侣 / 宿命天敌：极度注重隐私的黑客"},
-  VOYEUR:{tag:"鹰眼",name:"置身事外的极客观测者",emoji:"👁️🔭📡",color:"#00E5FF",rarity:"~1.5%",hidden:true,
+  VOYEUR:{tag:"监控室保安大爷",name:"监控室保安大爷",emoji:"👁️🔭📡",color:"#00E5FF",rarity:"~1.5%",hidden:true,
     vis:"一个拿着专业级望远镜、笔记本记满密密麻麻笔记、神情严肃如论文答辩的研究员。",
     core:"【隐藏结局解锁】你的 XP 建立在『安全的视觉剥削与零责任感』之上。你拒绝下场肉搏，因为参与就意味着要承担情感风险和体力消耗。你最大的快感来自于『知道』，而不是『得到』。",
     profile:"互联网上最顶级的吃瓜群众就是你这种人。你有着极高的心理边界。对你来说，亲密关系是一部由你投资但不由你主演的电影。你极度包容，能够毫无波澜甚至兴致勃勃地欣赏伴侣在别人面前展现魅力（或屈服）。",
     scene:"最让你热血沸腾的高光时刻：你在距离伴侣 3000 公里外的出差酒店里，打开手机里的隐秘监控软件，面无表情地看着伴侣在你布置好的特定环境里执行你留下的『任务』，并像做学术研究一样做起了笔记。",
     danger:"伴侣突然转过头对着镜头说：『别看了，你亲自过来。』——瞬间打破了你的安全距离，让你尴尬到想拔网线。",
     match:"天选羁绊：【盆栽】BMFO 或 表现欲极强的人 / 宿命天敌：极度保守的纯爱战神"},
-  MONK:{tag:"佛陀",name:"电子木鱼的首席敲击师",emoji:"🧘☸️📿",color:"#FFE600",rarity:"~1%",hidden:true,
+  MONK:{tag:"班味绝育牛马",name:"班味绝育牛马",emoji:"🧘☸️📿",color:"#FFE600",rarity:"~1%",hidden:true,
     vis:"一个盘腿坐在莲花台上、身穿赛博朋克改良僧袍、手里拿着一串发光念珠的数字佛陀。",
     core:"【隐藏结局解锁】在这个人均 XP 爆炸的时代，你的 XP 是『无欲无求』。所有的物理刺激、精神控制、恋物倾向在你的雷达上都趋近于零。你对碳基生物的繁衍冲动感到极其疲惫。",
     profile:"你不是性冷淡，你只是彻底看破了红尘（或者单纯因为上班太累被榨干了）。你拥有极度稳定的内核，外界的感官刺激对你来说就像是廉价的劣质香精。你追求的是一种形而上的、灵魂共振的赛博禅意，又名：我只想好好睡个觉。",
     scene:"最让你热血沸腾的高光时刻：伴侣穿着极其惹火的情趣内衣，手拿皮鞭在你面前摆出诱惑的姿势。而你平静地喝了一口枸杞茶，指着电视说：『挡住我看《动物世界》了，麻烦让一让，今天讲的是水豚的冥想。』",
     danger:"伴侣是一个索求无度的泰迪型人格，或者非要强迫你参加各种极其耗费体力的 BDSM 聚会。",
     match:"天选羁绊：同样被生活榨干的打工人 / 宿命天敌：精力旺盛的所有人"},
-  FLUID:{tag:"流体",name:"无法被定义的量子生命",emoji:"🌊💧🐙",color:"#4FC3F7",rarity:"~4%",hidden:true,
+  FLUID:{tag:"全自动XP缝合怪",name:"全自动XP缝合怪",emoji:"🌊💧🐙",color:"#4FC3F7",rarity:"~4%",hidden:true,
     vis:"一个轮廓随时在变形、从人类渐变为水母再渐变为章鱼、但始终保持微笑的流体生命体。",
     core:"【隐藏结局解锁】你的 XP 是『全域兼容与概念消融』。算法无法给你贴标签，因为你在主导与臣服、精神与肉体、纯爱与恋物之间，达到了令人发指的均衡。你不是没有偏好，而是你什么都爱。",
     profile:"你是一个泛性恋、全维度的终极体验派。你极其开放、包容，甚至性别认知对你来说都是一种束缚。你就像水一样，伴侣是什么形状的容器，你就能丝滑地变成什么样的液体。你享受这种没有边界的融合感。",
     scene:"最让你热血沸腾的高光时刻：早上你是雷厉风行的霸总，中午你是被五花大绑的阶下囚，晚上你变成了对毛绒尾巴爱不释手的纯爱少男/少女。最爽的是，你在每个角色里都体验到了 100% 真实的快乐。",
     danger:"有人非逼着你填一张表格，上面写着：『请在 S 和 M 之间单选一项，且终生不能更改。』",
     match:"天选羁绊：【魔方】SWITCH 或 同样千变万化的人 / 宿命天敌：刻板印象狂魔"},
-  CHAOS:{tag:"邪神",name:"无法观测的阿卡姆病友",emoji:"🌀😈🎲",color:"chaos",rarity:"~5%",hidden:true,
+  CHAOS:{tag:"阿卡姆优秀校友",name:"阿卡姆优秀校友",emoji:"🌀😈🎲",color:"chaos",rarity:"~5%",hidden:true,
     vis:"一团不可名状的马赛克，长着克苏鲁的触手，穿戴着精神病号服，手里拿着一个发光的骰子。",
     core:"【隐藏结局解锁】你没有性癖，你的性癖就是『发疯与解构』。你做这个测试纯粹是为了恶心出题人。你极其享受那种『完全不按套路出牌、让所有人（包括伴侣）对你的精神状态感到恐惧』的恶作剧快感。",
     profile:"你拥有极高的互联网抽象造诣和解构主义精神。你用荒诞来对抗这个一切都被标签化和量化的无聊世界。在亲密关系里，你是一个浪漫的恐怖分子，和你谈恋爱就像在玩一场没有规则的俄罗斯轮盘赌。",
     scene:"最让你热血沸腾的高光时刻：在情到浓时、伴侣满眼期待等你下一步动作的时候，你突然掏出一个绿头鱼面具戴上，并用标准的播音腔开始朗诵《出师表》，欣赏伴侣崩溃、迷茫又无助的表情。",
     danger:"伴侣是一个极其严肃的心理医生，不仅没有被你吓到，反而拿出小本本开始认真记录，并试图用弗洛伊德理论分析你童年的创伤。",
     match:"天选羁绊：精神病院的主治医师 / 宿命天敌：所有逻辑正常的人类"},
-  ERROR:{tag:"乱码",name:"[数据损毁]系统检测到异常实体",emoji:"⚠️💀📛",color:"#FF3333",rarity:"~0.4%",hidden:true,ultra:true,
+  ERROR:{tag:"重度赛博精神病",name:"重度赛博精神病",emoji:"⚠️💀📛",color:"#FF3333",rarity:"~0.4%",hidden:true,ultra:true,
     vis:"一段不停闪烁的系统报错代码，夹杂着BSOD蓝屏画面，以及某个已被审查的不可名状词条。",
     core:"★★★ 【神话级隐藏结局】系统崩溃。算法过载。在 25 道题里，你几乎完美避开了所有正常人类会选的选项。你对碳基生物的交互逻辑已经彻底免疫。你需要的不是伴侣，而是重启宇宙的按钮。",
     profile:"全球约 0.4% 的人能打出这个结局。你是真正的后结构主义虚无主义者。你不仅解构了亲密关系，你甚至解构了存在本身。你的极度疯狂背后，隐藏着一种『看透一切游戏规则后觉得索然无味』的绝对冷漠。",
     scene:"最让你热血沸腾的高光时刻：[该段落由于包含极其反人类和不可名状的信息，已被服务器安全防火墙强行拦截屏蔽，并自动拨打了 120 精神卫生中心热线。]",
     danger:"尝试向普通人类解释你的脑回路，导致他们当场 San 值（理智值）清零。",
     match:"天选羁绊：克苏鲁神话里的旧日支配者 / 宿命天敌：碳基生物的法律与道德"},
-  OMEGA:{tag:"真理",name:"全知全能的薛定谔之猫",emoji:"∞🌈🔮",color:"omega",rarity:"~0.1%",hidden:true,ultra:true,
+  OMEGA:{tag:"六边形究极魅魔",name:"六边形究极魅魔",emoji:"∞🌈🔮",color:"omega",rarity:"~0.1%",hidden:true,ultra:true,
     vis:"一个轮廓由彩虹光组成、随时在坍缩与展开之间变换、无法被直接观测的量子生命体。",
     core:"★★★ 【神话级隐藏结局】你不仅触发了隐藏，你触发了宇宙真理。你的数据在 8 个极端维度上（T/B, M/P, H/F, C/O）达到了小数点级别的绝对完美平衡。你同时是一切，又同时什么都不是。",
     profile:"全球仅不到 0.1% 的人能达成此神迹！这代表着心理学上的终极整合（Individuation）。你既有统治世界的暴君之威，又有低落尘埃的绝对臣服；你既是肉欲的信徒，也是精神的导师。你彻底超脱了 XP 的束缚，荣格心理学应该以你的名字重新命名。",
@@ -852,17 +976,93 @@ const RS = {
     match:"天选羁绊：只有你自己 / 宿命天敌：无"}
 };
 
+const RESULT_SUBS = {
+  TMHC:"爱你是真的，想全方位剥削并掌控你的大脑也是真的。主打一个既要绝对忠诚，又要绝对服从。",
+  TMHO:"赛博PUA祖师爷。极度擅长洗脑、服从性测试和当众精神施压，最爱看对方理智崩溃的样子。",
+  TMFC:"把卧室变成了专属监狱。比起活人，更迷恋皮革、绳索或特定制服的质感，伴侣只是展示这些材质的“肉体衣架”。",
+  TMFO:"掌控欲全用在写奇怪的剧本和远程遥控上了。不亲自下场肉搏，最喜欢坐在幕后欣赏伴侣在公共场合社死。",
+  TPHC:"领地意识极强，没有弯弯绕绕的语言指令，表达爱的方式就是疯狂留牙印和种草莓。",
+  TPHO:"极度热爱野战、落地窗、安全通道等高危环境。追求随时被发现的背德感，随时准备进局子。",
+  TPFC:"沉迷绳艺和力学，比起对方爽不爽，更在乎绳结打得好不好看。把谈恋爱谈成了理工科研项目。",
+  TPFO:"主打一个无底线、大尺度物理硬核整活。只要社死的不是你，就可以毫无道德负担地折腾别人。",
+  BMHC:"白天是挨骂的牛马，晚上只想被人摸头叫一声乖狗狗。给句夸奖就能脑干缺失，极度慕强。",
+  BMHO:"主打一个极度包容、甚至爱看别人绿自己的沉浸式吃瓜。喜欢在角落里默默观察自己被边缘化。",
+  BMFC:"彻底脱离人类低级趣味，对特定气味和毛茸茸的配件毫无抵抗力，一秒退化成赛博宠物。",
+  BMFO:"极度边缘化，心甘情愿当一个被随意摆弄和围观的植物。在放弃尊严的边缘体验破罐子破摔的自由。",
+  BPHC:"没挨巴掌和咬痕就浑身难受。别人谈恋爱要亲亲抱抱，你要的是结结实实的一顿收拾才能感受到爱。",
+  BPHO:"追求在公共场合穿着奇怪的东西或者被束缚的极致心跳。卧室里的温开水没意思，天天都在悬崖边跳舞。",
+  BPFC:"终极拘束癖。最爽的状态是失去一切行动力，被五花大绑当成主人的专属配件，大脑彻底断电。",
+  BPFO:"毫无物理底线，敢于尝试各种危险机器和公开处刑。极度渴望在开放环境下被当成“耗材”极限测试。",
+  SWITCH:"权力动态反复横跳。前一秒还在汪汪汪，下一秒直接翻身踩你脸上，没有单一人格能定义你。",
+  VANILLA:"在全员变态的测试里正常得令人发指，只做爱不搞怪，简直像个来钓鱼执法的警察。",
+  GHOST:"只要你的数据、聊天记录和毛发，坚决不碰你的肉体。在暗处完成绝对的单向观测与概念占有。",
+  VOYEUR:"对亲自下场肉搏毫无兴趣，只想端着茶杯看监控录像。最大的快感来自于“知道”，而不是“得到”。",
+  MONK:"什么皮鞭蜡烛，老子上班已经被榨干了，现在只想清修和睡觉。对碳基生物的繁衍冲动感到极度疲惫。",
+  FLUID:"什么都吃，什么都能演，没有底线的多边形战士。在主导与臣服、纯爱与恋物之间丝滑切换。",
+  CHAOS:"纯粹的乐子人，毫无逻辑，乱选一通。没救了，建议直接呼叫精神病院把你抓走。",
+  ERROR:"完美避开所有正常人类会选的选项。对碳基生物的交互逻辑彻底免疫，需要的不是伴侣，而是重启宇宙的按钮。",
+  OMEGA:"同时拿捏了所有 XP 维度的终极神明。数据达到了小数点级别的完美平衡，你就是欲望本身。"
+};
+
 /* ════════════════════════
    STATE
 ════════════════════════ */
 let qi = 0, busy = false;
 let sc = {T:0,B:0,M:0,P:0,H:0,F:0,C:0,O:0,X:0};
 let ans = [];
+let finalType = null;
+let userGender = '';
+let userOrientation = '';
+let copyAudience = 'fluid_target';
+const AUDIENCE_LABELS = {
+  male_target:'喜欢男性',
+  female_target:'喜欢女性',
+  fluid_target:'流动 / 不被定义'
+};
+const LETTER_CAPS = QS.reduce((caps, q) => {
+  q.o.forEach(opt => { caps[opt.v] = (caps[opt.v] || 0) + 1; });
+  return caps;
+}, {T:0,B:0,M:0,P:0,H:0,F:0,C:0,O:0,X:0});
 
 /* ════════════════════════
    NAV
 ════════════════════════ */
 function go(id){ document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on')); document.getElementById(id).classList.add('on'); }
+
+function resolveAudience(gender, orientation){
+  if(!gender || !orientation) return 'fluid_target';
+  if(['undefined','fluid'].includes(gender) || ['undefined','fluid'].includes(orientation)) return 'fluid_target';
+  if((gender === 'female' && orientation === 'straight') || (gender === 'male' && orientation === 'gay')) return 'male_target';
+  if((gender === 'male' && orientation === 'straight') || (gender === 'female' && orientation === 'gay')) return 'female_target';
+  return 'fluid_target';
+}
+
+function resolveCopy(field){
+  if(typeof field === 'string') return field;
+  if(!field) return '';
+  return field[copyAudience] || field.base || field.fluid_target || field.male_target || field.female_target || '';
+}
+
+function updateAudienceHint(){
+  const goBtn = document.getElementById('btn-pref-go');
+  if(goBtn) goBtn.disabled = !(userGender && userOrientation);
+}
+
+function setPreference(group, value){
+  if(group === 'gender') userGender = value;
+  if(group === 'orientation') userOrientation = value;
+  copyAudience = resolveAudience(userGender, userOrientation);
+  document.querySelectorAll(`.p-opt[data-pref-group="${group}"]`).forEach(btn=>{
+    btn.classList.toggle('sel', btn.dataset.prefValue === value);
+  });
+  updateAudienceHint();
+}
+
+function openPrefs(){
+  copyAudience = resolveAudience(userGender, userOrientation);
+  updateAudienceHint();
+  go('sp');
+}
 
 /* ════════════════════════
    COUNTER
@@ -878,25 +1078,28 @@ function go(id){ document.querySelectorAll('.scr').forEach(s=>s.classList.remove
    QUIZ
 ════════════════════════ */
 function startQuiz(){
+  copyAudience = resolveAudience(userGender, userOrientation);
   qi = 0;
   sc = {T:0,B:0,M:0,P:0,H:0,F:0,C:0,O:0,X:0};
   ans = new Array(QS.length).fill(null);
+  finalType = null;
   go('sq');
   renderQ(qi);
 }
 
 function renderQ(i){
   const q = QS[i];
+  const qCopy = AUDIENCE_COPY[i];
   document.getElementById('pn').textContent = `${i+1}/25`;
   document.getElementById('pf').style.width = `${((i+1)/25*100).toFixed(1)}%`;
   document.getElementById('qtag').textContent = `Q.${String(i+1).padStart(2,'0')}`;
-  document.getElementById('qtext').textContent = q.q;
+  document.getElementById('qtext').textContent = resolveCopy(qCopy?.q || q.q);
   const opts = document.getElementById('qopts');
   opts.innerHTML = '';
-  q.o.forEach(o=>{
+  q.o.forEach((o, idx)=>{
     const d = document.createElement('div');
     d.className = 'opt';
-    d.innerHTML = `<span class="opt-l">${o.l}</span><span class="opt-t">${o.t}</span>`;
+    d.innerHTML = `<span class="opt-l">${o.l}</span><span class="opt-t">${resolveCopy(qCopy?.o?.[idx]?.t || o.t)}</span>`;
     d.addEventListener('click', ()=>pick(o.v));
     opts.appendChild(d);
   });
@@ -952,6 +1155,12 @@ function computeScores(){
   });
 }
 
+function normalizedScore(key){
+  const cap = LETTER_CAPS[key] || 0;
+  if(cap <= 0) return 0;
+  return (sc[key] || 0) / cap;
+}
+
 function goPrev(){
   if(busy) return;
   if(qi <= 0) return;
@@ -969,6 +1178,15 @@ function goNext(){
   }
   qi++;
   renderQ(qi);
+}
+
+function backToHome(){
+  qi = 0;
+  sc = {T:0,B:0,M:0,P:0,H:0,F:0,C:0,O:0,X:0};
+  ans = new Array(QS.length).fill(null);
+  finalType = null;
+  clearInterval(loadT);
+  go('si');
 }
 
 /* ════════════════════════
@@ -994,23 +1212,59 @@ function showLoad(){
 function calcType(){
   const {T,B,M,P,H,F,C,O,X} = sc;
   const tot = T+B+M+P+H+F+C+O;
+  const tScore = normalizedScore('T');
+  const bScore = normalizedScore('B');
+  const mScore = normalizedScore('M');
+  const pScore = normalizedScore('P');
+  const hScore = normalizedScore('H');
+  const fScore = normalizedScore('F');
+  const cScore = normalizedScore('C');
+  const oScore = normalizedScore('O');
 
-  // Ultra-rare
-  if(X >= 7) return 'ERROR';
-  if(T===B && M===P && H===F && C===O && tot >= 6) return 'OMEGA';
+  // Normalize against question-bank exposure so letters with more answer slots
+  // do not dominate the base type by sheer volume.
+  const baseType = (tScore>=bScore?'T':'B') + (mScore>=pScore?'M':'P') + (hScore>=fScore?'H':'F') + (cScore>=oScore?'C':'O');
 
-  // Special hidden
-  if(X >= 6) return 'CHAOS';
-  if(H >= 5 && F <= 1 && P <= 1 && X === 0) return 'VANILLA';
-  if(C >= 5 && (T+B) <= 3 && O <= 1) return 'GHOST';
-  if((T+B+M+P+F) <= 3 && H >= 4 && X === 0) return 'MONK';
-  if(O >= 4 && (T+B) <= 2) return 'VOYEUR';
-  if(Math.abs(T-B) <= 1 && (T+B) >= 4) return 'SWITCH';
+  // Signals used by hidden checks (avoid random "乱入")
+  const omegaSignal = (T===B && M===P && H===F && C===O && tot >= 10);
+  const errorSignal = (X >= 6);
+  const switchSignal = (Math.abs(T-B) <= 1 && (T+B) >= 4);
+  const vanillaSignal = (H >= 5 && F <= 1 && P <= 1 && X === 0);
+  const ghostSignal = (C >= 5 && (T+B) <= 3 && O <= 1);
+  const voyeurSignal = (O >= 4 && (T+B) <= 2);
+  const monkSignal = ((T+B+M+P+F) <= 3 && H >= 4 && X === 0);
   const dims = [T,B,M,P,H,F,C,O];
-  if(dims.every(d=>d>=1) && Math.max(...dims)<=4 && X<=2) return 'FLUID';
+  const fluidSignal = (dims.every(d=>d>=1) && Math.max(...dims)<=4 && X<=2);
+  const chaosSignal = (X >= 5);
 
-  // Base 16
-  return (T>=B?'T':'B') + (M>=P?'M':'P') + (H>=F?'H':'F') + (C>=O?'C':'O');
+  // Hidden gate: keep hidden rare overall
+  // (reference: base mostly appears; hidden only occasional)
+  const hiddenGate = 0.09; // ~9%
+  if(Math.random() >= hiddenGate) return baseType;
+
+  // Weighted hidden pool with strict signal checks.
+  // Mythic types are intentionally much rarer.
+  const pool = [];
+  if(switchSignal) pool.push(['SWITCH', 1.0]);
+  if(vanillaSignal) pool.push(['VANILLA', 1.0]);
+  if(ghostSignal) pool.push(['GHOST', 1.0]);
+  if(voyeurSignal) pool.push(['VOYEUR', 1.0]);
+  if(monkSignal) pool.push(['MONK', 1.0]);
+  if(fluidSignal) pool.push(['FLUID', 0.9]);
+  if(chaosSignal) pool.push(['CHAOS', 0.7]);
+  if(errorSignal) pool.push(['ERROR', 0.22]);
+  if(omegaSignal) pool.push(['OMEGA', 0.18]);
+
+  if(pool.length === 0) return baseType;
+
+  const totalWeight = pool.reduce((s, [,w])=>s+w, 0);
+  let r = Math.random() * totalWeight;
+  for(const [type, w] of pool){
+    r -= w;
+    if(r <= 0) return type;
+  }
+
+  return baseType;
 }
 
 /* ════════════════════════
@@ -1057,6 +1311,14 @@ function buildBars(scores){
       ${row('欲望锚点','全人','H',p3.a,p3.b,'恋物','F','你更被“整个人”吸引还是被“特定触发器”击中？')}
       ${row('边界阈值','占有','C',p4.a,p4.b,'开放','O','你更需要“专属锁定”还是更能接受“开放结构”？')}
     </div>`;
+}
+
+function formatMatchText(text){
+  if(!text) return '';
+  return text.replace(/【[^】]+】([A-Z]+)\b/g, (_, code) => {
+    const ref = RS[code];
+    return ref ? `【${ref.tag}】${code}` : `【${code}】${code}`;
+  });
 }
 
 /* ════════════════════════
@@ -1235,7 +1497,8 @@ function buildCharacter(type, color){
 function showResult(){
   // ensure scores reflect final answers (supports back/next edits)
   computeScores();
-  const type = calcType();
+  const type = finalType || calcType();
+  finalType = type;
   const r = RS[type];
   const card = document.getElementById('res-card');
 
@@ -1255,15 +1518,16 @@ function showResult(){
 
   // Top display (tag + code)
   const tag = r.tag || '人格';
+  const subtitle = RESULT_SUBS[type] || '';
   let topTagHTML;
   let codeText = type;
   if(isError){ codeText = '[ERR_OVERFLOW]'; }
   if(isOmega){ codeText = 'OMEGA'; }
   if(isChaos){ codeText = 'CHAOS'; }
-  if(type === 'ERROR') topTagHTML = `<div class="r-tag err-glitch" style="color:#FF3333">${tag}</div>`;
-  else if(isOmega) topTagHTML = `<div class="r-tag omega-rainbow" style="-webkit-text-fill-color:transparent">${tag}</div>`;
-  else if(isChaos) topTagHTML = `<div class="r-tag chaos-txt" style="-webkit-text-fill-color:transparent">${tag}</div>`;
-  else topTagHTML = `<div class="r-tag">${tag}</div>`;
+  if(type === 'ERROR') topTagHTML = `<div class="r-head"><div class="r-tag err-glitch" style="color:#FF3333">${tag}</div>${subtitle ? `<div class="r-sub">${subtitle}</div>` : ''}</div>`;
+  else if(isOmega) topTagHTML = `<div class="r-head"><div class="r-tag omega-rainbow" style="-webkit-text-fill-color:transparent">${tag}</div>${subtitle ? `<div class="r-sub">${subtitle}</div>` : ''}</div>`;
+  else if(isChaos) topTagHTML = `<div class="r-head"><div class="r-tag chaos-txt" style="-webkit-text-fill-color:transparent">${tag}</div>${subtitle ? `<div class="r-sub">${subtitle}</div>` : ''}</div>`;
+  else topTagHTML = `<div class="r-head"><div class="r-tag">${tag}</div>${subtitle ? `<div class="r-sub">${subtitle}</div>` : ''}</div>`;
 
   // Rarity badge
   const rarityLabel = r.ultra
@@ -1278,16 +1542,15 @@ function showResult(){
   // Opposing bars
   const barsHTML = buildBars(sc);
   const charHTML = buildCharacter(type, tc);
+  const matchText = formatMatchText(r.match || '如果你愿意把边界讲清楚，你会遇到能一起玩、也能一起收尾的人。');
 
   card.innerHTML = `
     <div class="r-top">
       ${topTagHTML}
       <div style="text-align:right">
         <div class="r-code mono">${codeText}</div>
-        <div style="font-size:10px;color:#34343b;margin-top:2px">${r.hidden ? '隐藏结局' : '基础类型'} · 仅供娱乐</div>
       </div>
     </div>
-    <div class="r-name">【${r.name}】</div>
     <div class="r-rarity">${rarityLabel}</div>
     ${errExtra}
     ${barsHTML}
@@ -1315,7 +1578,7 @@ function showResult(){
       <div class="match-row">
         <div class="match-i">
           <div class="match-k">天选羁绊 & 宿命天敌</div>
-          <div class="match-v">${r.match || '如果你愿意把边界讲清楚，你会遇到能一起玩、也能一起收尾的人。'}</div>
+          <div class="match-v">${matchText}</div>
         </div>
       </div>
     </div>
@@ -1331,9 +1594,9 @@ function showResult(){
       hintEl.innerHTML = `🎊 你触发了神话级隐藏结局！<br>全球约 <em>${r.rarity}</em> 的人能做到这一点。截图晒出来，让大家羡慕吧。`;
     } else if(r.hidden){
       const remain = ['SWITCH','VANILLA','GHOST','VOYEUR','MONK','FLUID','CHAOS','ERROR','OMEGA'].filter(t=>t!==type);
-      hintEl.innerHTML = `🔓 隐藏结局已解锁！还有 <em>${remain.length} 个隐藏结局</em> 等你发现……<br>其中 2 个是神话级，只有极少数人能触发。`;
+      hintEl.innerHTML = `🔓 隐藏结局已解锁！还有 <em>${remain.length} 个隐藏结局</em> 等你发现……<br>其中 2 个是神话级，触发概率极低。`;
     } else {
-      hintEl.innerHTML = `据说有 <em>9 种隐藏结局</em>，包含 2 种神话级类型……<br>只有不到 1% 的人能触发它们 👀`;
+      hintEl.innerHTML = `据说有 <em>9 种隐藏结局</em>，包含 2 种神话级类型……<br>隐藏触发概率已大幅降低 👀`;
     }
   }
 
@@ -1362,13 +1625,13 @@ async function doShare(){
     const card = document.getElementById('res-card');
     const canvas = await h2c(card,{backgroundColor:'#0f0f11',scale:2,useCORS:true,logging:false});
     const a = document.createElement('a');
-    a.download = `SMTI_${calcType()}.png`;
+    a.download = `SMTI_${finalType || calcType()}.png`;
     a.href = canvas.toDataURL('image/png');
     a.click();
     toast('✓ 鉴定报告已保存，快分享给朋友！');
   } catch(e){
     try{
-      const type = calcType();
+      const type = finalType || calcType();
       const r = RS[type];
       const blurb = r.core || r.profile || r.scene || r.funny || '';
       await navigator.clipboard.writeText(`我的SMTI是 ${type}【${r.name}】\n${blurb}`);
@@ -1389,11 +1652,18 @@ function toast(msg){
 }
 
 /* ── INIT ── */
-document.getElementById('btn-start').addEventListener('click', startQuiz);
+document.getElementById('btn-start').addEventListener('click', openPrefs);
+document.querySelectorAll('.p-opt').forEach(btn=>{
+  btn.addEventListener('click', ()=>setPreference(btn.dataset.prefGroup, btn.dataset.prefValue));
+});
+document.getElementById('btn-pref-back').addEventListener('click', ()=>go('si'));
+document.getElementById('btn-pref-go').addEventListener('click', startQuiz);
 document.getElementById('bshare').addEventListener('click', doShare);
 document.getElementById('btn-retry').addEventListener('click', startQuiz);
+document.getElementById('btn-home').addEventListener('click', backToHome);
 document.getElementById('btn-prev').addEventListener('click', goPrev);
 document.getElementById('btn-next').addEventListener('click', goNext);
+updateAudienceHint();
 go('si');
 </script>
 </body>
